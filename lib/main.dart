@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:time_tracking_demo/constants/shared_preference.dart';
 import 'package:time_tracking_demo/localization/i10n.dart';
+import 'package:time_tracking_demo/screen/bottom_nav_bar.dart';
 import 'package:time_tracking_demo/screen/home.dart';
 import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
 
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeState.appTheme,
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         ShadeAppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
       //   Locale('en', ''),
       //   Locale('de', ''),
       // ],
-      home:  HomePage(),
+      home:  BottomNavBarScreen(),
       // routes: {
       //   SiteSelectionPage.routeName: (context) => const SiteSelectionPage(),
       //   ExpenseTab.routeName: (context) => const ExpenseTab(),

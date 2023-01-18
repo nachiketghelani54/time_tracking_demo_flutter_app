@@ -49,8 +49,6 @@ class HomePage extends StatelessWidget {
             _auth.signInAnonymously().then((value) {
               print(value.user);
             });
-
-
           },child: Text("Login"),)
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +11,8 @@ import '../theme/widget_theme/colors_and_text_style.dart';
 import 'language_selection_screen.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+   HomePage({Key? key}) : super(key: key);
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc,ThemeState>(builder: (context, state) => Scaffold(
@@ -42,7 +43,15 @@ class HomePage extends StatelessWidget {
           ),
           LanguageSelection(),
           SizedBox(height: 90,),
-          Text(context.localization.about)
+          Text(context.localization.about),
+          SizedBox(height: 90,),
+          ElevatedButton(onPressed: () async{
+            _auth.signInAnonymously().then((value) {
+              print(value.user);
+            });
+
+
+          },child: Text("Login"),)
         ],
       ),
     ),);

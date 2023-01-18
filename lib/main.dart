@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,11 +15,12 @@ import 'localization/localization_helper.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSharedPreferences();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,7 @@ class MyApp extends StatelessWidget {
       //   Locale('en', ''),
       //   Locale('de', ''),
       // ],
-      home: const HomePage(),
+      home:  HomePage(),
       // routes: {
       //   SiteSelectionPage.routeName: (context) => const SiteSelectionPage(),
       //   ExpenseTab.routeName: (context) => const ExpenseTab(),

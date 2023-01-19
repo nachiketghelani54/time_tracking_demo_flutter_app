@@ -11,46 +11,43 @@ class LanguageSelection extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: const BoxDecoration(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: PopupMenuButton(
-            color: Theme.of(context).appBarTheme.backgroundColor,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Select Language',
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-                const Icon(Icons.arrow_drop_down_outlined)
-              ],
+    return Container(
+      decoration: const BoxDecoration(),
+      child: PopupMenuButton(
+        offset: Offset(110, 0),
+        color: Theme.of(context).appBarTheme.backgroundColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'Select Language',
+              style: Theme.of(context).textTheme.subtitle2,
             ),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text(context.localization.english,
-                    style: Theme.of(context).textTheme.subtitle2),
-                onTap: () => context
-                    .read<LocalizationsBloc>()
-                    .add(ChangeLocale(L10n.enUS.getLocale())),
-              ),
-              PopupMenuItem(
-                child: Text(context.localization.german,
-                    style: Theme.of(context).textTheme.subtitle2),
-                onTap: () => context
-                    .read<LocalizationsBloc>()
-                    .add(ChangeLocale(L10n.de.getLocale())),
-              ),
-            ],
-          ),
+            const Icon(Icons.arrow_drop_down_outlined)
+          ],
         ),
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            child: Text(context.localization.english,
+                style: Theme.of(context).textTheme.subtitle2),
+            onTap: () => context
+                .read<LocalizationsBloc>()
+                .add(ChangeLocale(L10n.enUS.getLocale())),
+          ),
+          PopupMenuItem(
+            child: Text(context.localization.german,
+                style: Theme.of(context).textTheme.subtitle2),
+            onTap: () => context
+                .read<LocalizationsBloc>()
+                .add(ChangeLocale(L10n.de.getLocale())),
+          ),
+        ],
       ),
     );
   }

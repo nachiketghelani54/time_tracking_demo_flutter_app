@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
@@ -8,6 +10,16 @@ import 'package:time_tracking_demo/screen/add_new_task/add_new_task_screen.dart'
 
 class ToDoScreen extends StatelessWidget {
   const ToDoScreen({Key? key}) : super(key: key);
+
+
+  startTimer() async{
+
+      Timer.periodic(const Duration(seconds: 1), (timer) async {
+
+          print(timer.tick);
+      });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +86,20 @@ class ToDoScreen extends StatelessWidget {
                                    ],
                                  ),
                                  Expanded(child: SizedBox()),
-                                 Container(
-                                   height: 35,
-                                   width: 80,
-                                   alignment: Alignment.center,
-                                   decoration: BoxDecoration(
-                                     borderRadius: BorderRadius.circular(10),
-                                     color: TaskColors.primaryColor,
+                                 InkWell(
+                                   onTap: (){
+                                     startTimer();
+                                   },
+                                   child: Container(
+                                     height: 35,
+                                     width: 80,
+                                     alignment: Alignment.center,
+                                     decoration: BoxDecoration(
+                                       borderRadius: BorderRadius.circular(10),
+                                       color: TaskColors.primaryColor,
+                                     ),
+                                     child: Text(context.localization.stop,style: FontStyleText.text14W500White,),
                                    ),
-                                   child: Text(context.localization.stop,style: FontStyleText.text14W500White,),
                                  )
                                ],
                              ),

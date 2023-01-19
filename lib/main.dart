@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:time_tracking_demo/constants/shared_preference.dart';
 import 'package:time_tracking_demo/localization/i10n.dart';
-import 'package:time_tracking_demo/screen/bottom_nav_bar.dart';
+import 'package:time_tracking_demo/screen/bottom_nav/bloc/bottom_nav_bloc.dart';
+import 'package:time_tracking_demo/screen/bottom_nav/bottom_nav_bar.dart';
 import 'package:time_tracking_demo/screen/home.dart';
 import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
 
@@ -36,6 +37,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
           ThemeBloc(localizationHelper: LocalizationHelper())
             ..add(const FetchThemeFromSharedPref()),
+        ),
+        BlocProvider(
+          create: (context) =>
+         BottomNavBloc()..add(ChangeTab(0)),
         ),
       ],
       child: BlocBuilder<LocalizationsBloc, LocalizationsState>(

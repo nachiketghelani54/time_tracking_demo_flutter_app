@@ -1,6 +1,5 @@
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
 import 'package:time_tracking_demo/models/task_model.dart';

@@ -5,6 +5,7 @@ class TaskModel {
   String? userId;
   String? title;
   String? description;
+  String? status;
   DateTime? dateTime;
   List<String>? timeHistory;
 
@@ -13,6 +14,7 @@ class TaskModel {
     this.userId = '',
     this.title = '',
     this.description = '',
+    this.status = '',
     this.dateTime,
     this.timeHistory = const [],
   });
@@ -22,6 +24,7 @@ class TaskModel {
     String? userId,
     String? title,
     String? description,
+    String? status,
     DateTime? dateTime,
     List<String>? timeHistory,
   }) =>
@@ -30,6 +33,7 @@ class TaskModel {
         userId: userId ?? userId,
         title: title ?? title,
         description: description ?? this.description,
+        status: status ?? this.status,
         dateTime: dateTime ?? dateTime,
         timeHistory: timeHistory ?? this.timeHistory,
       );
@@ -39,6 +43,7 @@ class TaskModel {
     result.addAll({'userId': userId});
     result.addAll({'title': title});
     result.addAll({'description': description});
+    result.addAll({'status': status});
     result.addAll({'dateTime': dateTime ?? DateTime.now()});
     result.addAll({'timeHistory': timeHistory});
     return result;
@@ -50,6 +55,7 @@ class TaskModel {
       userId: map['userId'] ?? '',
       title: map['title'] ?? '',
       description: map['description'] ?? '',
+      status: map['status'] ?? '',
       dateTime: DateTime.fromMillisecondsSinceEpoch(
           map['dateTime'].millisecondsSinceEpoch),
       timeHistory: map['timeHistory'] == [] ? [] : List<String>.from(map['timeHistory']),

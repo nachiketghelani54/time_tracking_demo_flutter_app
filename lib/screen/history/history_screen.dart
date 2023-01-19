@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:time_tracking_demo/constants/function.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 
@@ -45,8 +47,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       Container(
                         height: 140,
                         width: 8,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
+                        decoration: BoxDecoration(
+                          color: getColor(state.taskList?[index].status ?? ''),
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(6),bottomLeft: Radius.circular(6)),
                         ),
                       ),
@@ -70,7 +72,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 ListTile(
                                   title: Text(state.taskList?[index].title ?? '',style: TextStyle(color: TaskColors.lightBlackColor,fontSize: 14,fontWeight: FontWeight.bold),),
                                   subtitle: Text(state.taskList?[index].description ?? '',style: TextStyle(color: TaskColors.hintColor,fontSize: 12,fontWeight: FontWeight.w500),),
-                                  trailing: Icon(Icons.more_vert_outlined),
                                 ),
                                 Divider(color: TaskColors.hintColor,endIndent: 8,indent: 8),
                                 Padding(
@@ -81,18 +82,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         children: [
                                           Image.asset("assets/images/ic_calander.png",scale: 1.8,),
                                           Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text("21/10/2023",style: FontStyleText.text12W400LightBlack,),
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(DateFormat("d MMM yyyy").format(state.taskList?[index].dateTime ?? DateTime.now()),style: FontStyleText.text12W400LightBlack,),
                                           ),
                                         ],
                                       ),
-
                                       Row(
                                         children: [
                                           Image.asset("assets/images/ic_clock.png",scale: 1.8,),
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text("21/10/2023",style: FontStyleText.text12W400LightBlack,),
+                                            child: Text(DateFormat("hh:mm").format(state.taskList?[index].dateTime ?? DateTime.now()),style: FontStyleText.text12W400LightBlack,),
                                           ),
                                         ],
                                       ),

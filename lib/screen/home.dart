@@ -10,10 +10,17 @@ import 'package:time_tracking_demo/theme/theme.dart';
 import '../theme/widget_theme/colors_and_text_style.dart';
 import 'language_selection_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
    HomePage({Key? key}) : super(key: key);
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+
+   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc,ThemeState>(builder: (context, state) => Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -46,9 +53,7 @@ class HomePage extends StatelessWidget {
           Text(context.localization.about),
           SizedBox(height: 90,),
           ElevatedButton(onPressed: () async{
-            _auth.signInAnonymously().then((value) {
-              print(value.user);
-            });
+
           },child: Text("Login"),)
         ],
       ),

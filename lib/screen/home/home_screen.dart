@@ -1,4 +1,5 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
@@ -24,14 +25,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
  late TabController tabController;
+ final FirebaseAuth _auth = FirebaseAuth.instance;
 
  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    _auth.signInAnonymously().then((value) {
+      print(value.user);
+    });
   }
-  @override
+
+
+
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(

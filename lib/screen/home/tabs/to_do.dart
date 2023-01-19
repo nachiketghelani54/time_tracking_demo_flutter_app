@@ -2,25 +2,73 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/add_new_task/add_new_task_screen.dart';
 
-class ToDoScreen extends StatelessWidget {
-  const ToDoScreen({Key? key}) : super(key: key);
+class ToDoScreen extends StatefulWidget {
 
+
+  @override
+  State<ToDoScreen> createState() => _ToDoScreenState();
+}
+
+class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
+    Timer? timer;
+
+    DateTime? dateTime;
+
+
+    Future saveCurrentDateTime() async{
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+     await preferences.setString("date_time", DateTime.now().toString());
+    }
+
+    getPastDateTime() async{
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+     var data =  preferences.getString("date_time");
+    if(data != null){
+      dateTime = DateTime.parse(data.toString());
+    }
+    }
 
   startTimer() async{
-
-      Timer.periodic(const Duration(seconds: 1), (timer) async {
-
-          print(timer.tick);
+      Timer.periodic(const Duration(seconds: 1), (time) async {
+           await saveCurrentDateTime();
+         if(dateTime != null){
+           print(dateTime!.second + 1);
+         }else{
+           print(time.tick);
+         }
       });
-
   }
 
+    @override
+    void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.detached){
+      saveCurrentDateTime().then((value) {
+        print("app terminated");
+
+      });
+    }}
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
+    super.dispose();
+    timer?.cancel();
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+    getPastDateTime();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

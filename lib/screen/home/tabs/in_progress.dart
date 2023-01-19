@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_tracking_demo/localization/localization.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../constants/text_style.dart';
+import '../../add_new_task/add_new_task_screen.dart';
 
 class InProgressScreen extends StatelessWidget {
   const InProgressScreen({Key? key}) : super(key: key);
@@ -80,7 +82,7 @@ class InProgressScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       color: TaskColors.primaryColor,
                                     ),
-                                    child: Text("Stop",style: FontStyleText.text14W500White,),
+                                    child: Text(context.localization.stop,style: FontStyleText.text14W500White,),
                                   )
                                 ],
                               ),
@@ -171,7 +173,10 @@ class InProgressScreen extends StatelessWidget {
               )),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(CupertinoIcons.add),backgroundColor: TaskColors.primaryColor,elevation: 0,),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewTaskScreen(),));
+
+      },child: Icon(CupertinoIcons.add),backgroundColor: TaskColors.primaryColor,elevation: 0,),
     );
   }
 }

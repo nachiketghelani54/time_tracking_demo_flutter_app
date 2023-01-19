@@ -1,5 +1,22 @@
 {
     "english": "English",
     "german": "German",
-    "about": "About"
+    "about": "About",
+    "history": "History",
+    "notification": "Notification",
+    "theme": "Theme",
+    "language": "Language",
+    "stop": "Stop",
+    "to_do": "To do",
+    "in_progress": "In Progress",
+    "done": "Done",
+    "home": "Home",
+    "setting": "Setting",
+    "completed": "Completed",
+    "download": "Download",
+    "title_name": "Title Name",
+    "description": "Description",
+    "create_task": "Create Task",
+    "create_new_task": "Create New Task"
+
 }

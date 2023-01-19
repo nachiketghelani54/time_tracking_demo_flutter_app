@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:time_tracking_demo/localization/localization.dart';
 
 import '../../constants/color_constant.dart';
 import '../../constants/text_style.dart';
@@ -13,7 +14,7 @@ class HistoryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: TaskColors.primaryColor,
         foregroundColor: Colors.white,
-        title: Text("History",style: TextStyle(color: TaskColors.backgroundColor,fontSize: 18,fontWeight: FontWeight.w500),),
+        title: Text(context.localization.history,style: TextStyle(color: TaskColors.backgroundColor,fontSize: 18,fontWeight: FontWeight.w500),),
         centerTitle: true,
         elevation: 0,
 
@@ -88,7 +89,7 @@ class HistoryScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
 
                                     ),
-                                    child: Text("Completed",style: FontStyleText.text14W500Green,),
+                                    child: Text(context.localization.completed,style: FontStyleText.text14W500Green,),
                                   )
                                 ],
                               ),
@@ -187,7 +188,7 @@ class HistoryScreen extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text("Download",style: FontStyleText.text16W500White,),
+              child: Text(context.localization.download,style: FontStyleText.text16W500White,),
             ),
           )
         ],

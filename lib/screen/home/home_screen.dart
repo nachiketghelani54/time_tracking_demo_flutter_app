@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
+import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/home/tabs/done.dart';
 import 'package:time_tracking_demo/screen/home/tabs/in_progress.dart';
 import 'package:time_tracking_demo/screen/home/tabs/to_do.dart';
@@ -39,9 +40,9 @@ appBar: AppBar(
       body: Column(
         children: [
           TabBar(tabs: [
-            Text("To do",),
-            Text("In Progress"),
-            Text("Done"),
+            Text(context.localization.to_do,),
+            Text(context.localization.in_progress),
+            Text(context.localization.done),
           ],controller: tabController,
           unselectedLabelColor: TaskColors.hintColor,
           labelColor: TaskColors.primaryColor,

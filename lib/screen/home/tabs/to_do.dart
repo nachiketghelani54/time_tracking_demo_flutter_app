@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
+import 'package:time_tracking_demo/localization/localization.dart';
+import 'package:time_tracking_demo/screen/add_new_task/add_new_task_screen.dart';
 
 class ToDoScreen extends StatelessWidget {
   const ToDoScreen({Key? key}) : super(key: key);
@@ -80,7 +82,7 @@ class ToDoScreen extends StatelessWidget {
                                      borderRadius: BorderRadius.circular(10),
                                      color: TaskColors.primaryColor,
                                    ),
-                                   child: Text("Stop",style: FontStyleText.text14W500White,),
+                                   child: Text(context.localization.stop,style: FontStyleText.text14W500White,),
                                  )
                                ],
                              ),
@@ -171,7 +173,9 @@ class ToDoScreen extends StatelessWidget {
              )),
        ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(CupertinoIcons.add),backgroundColor: TaskColors.primaryColor,elevation: 0,),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewTaskScreen(),));
+      },child: Icon(CupertinoIcons.add),backgroundColor: TaskColors.primaryColor,elevation: 0,),
     );
   }
 }

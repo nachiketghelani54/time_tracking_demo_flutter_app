@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
+import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/history/history_screen.dart';
 import 'package:time_tracking_demo/screen/home/home_screen.dart';
 import 'package:time_tracking_demo/screen/setting/setting_screen.dart';
@@ -24,9 +25,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon: Image.asset("assets/images/ic_home_unselect.png",scale: 2.9),label: "Home",activeIcon:  Image.asset("assets/images/ic_home_select.png",scale: 2.9,),),
-        BottomNavigationBarItem(icon: Image.asset("assets/images/ic_history_unselect.png",scale: 2.9),label: "History",activeIcon: Image.asset("assets/images/ic_history_select.png",scale: 2.9,)),
-        BottomNavigationBarItem(icon: Image.asset("assets/images/ic_setting_unselect.png",scale: 2.9),label: "Setting",activeIcon: Image.asset("assets/images/ic_setting_select.png",scale: 2.9,)),
+        BottomNavigationBarItem(icon: Image.asset("assets/images/ic_home_unselect.png",scale: 2.9),label: context.localization.home,activeIcon:  Image.asset("assets/images/ic_home_select.png",scale: 2.9,),),
+        BottomNavigationBarItem(icon: Image.asset("assets/images/ic_history_unselect.png",scale: 2.9),label: context.localization.history,activeIcon: Image.asset("assets/images/ic_history_select.png",scale: 2.9,)),
+        BottomNavigationBarItem(icon: Image.asset("assets/images/ic_setting_unselect.png",scale: 2.9),label: context.localization.setting,activeIcon: Image.asset("assets/images/ic_setting_select.png",scale: 2.9,)),
       ],
       backgroundColor: TaskColors.primaryColor,
       elevation: 0,

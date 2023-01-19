@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "795912892935-9h88j9t91u14mrpjqpkmno42aq15n019.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.time_tracking_demo",
+            "certificate_hash": "d09b32d89ccce0671d2717943e8270386a09224b"
+          }
+        },
+        {
           "client_id": "795912892935-rkvb58cdnho7qrh7lttbra6ag398o18n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -37,6 +45,13 @@
             {
               "client_id": "795912892935-2j82rrc4fmjcc7stm9hq6npklqqf6h2v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "795912892935-552uac2qvsr2lgqbedb50ajh3q8j5o5r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.timeTrackingDemo"
+              }
             }
           ]
         }

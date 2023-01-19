@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:time_tracking_demo/constants/firebase_constant.dart';
+import 'package:time_tracking_demo/constants/string_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 
 import '../../constants/color_constant.dart';
 
-class AddNewTaskScreen extends StatefulWidget {
-  const AddNewTaskScreen({Key? key}) : super(key: key);
+class AddNewTaskScreen extends StatelessWidget {
+  AddNewTaskScreen({Key? key}) : super(key: key);
 
-  @override
-  State<AddNewTaskScreen> createState() => _AddNewTaskScreenState();
-}
-
-class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _discriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +32,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               child: Text(context.localization.title_name,style: FontStyleText.text14W400Hint,),
             ),
             TextField(
+              controller: _titleController,
               decoration: InputDecoration(
                 hintText: "SAL | Create Api definition for ",
                   hintStyle: FontStyleText.text14W400Hint,
@@ -46,6 +46,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               child: Text(context.localization.description,style: FontStyleText.text14W400Hint,),
             ),
             TextField(
+              controller: _discriptionController,
               decoration: InputDecoration(
                   hintText: "Website UI design for...",
                   hintStyle: FontStyleText.text14W400Hint,
@@ -58,19 +59,44 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             ),
             SizedBox(height: 50,),
 
-            Container(
-              alignment: Alignment.center,
-              height: 45,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(8),
+            GestureDetector(
+              onTap: (){
+                _submit(context);
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: 45,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(context.localization.create_task,style: FontStyleText.text16W500White,),
               ),
-              child: Text(context.localization.create_task,style: FontStyleText.text16W500White,),
             )
           ],
         ),
       ),
     );
+  }
+  FirebaseConstant firebaseConstant = FirebaseConstant();
+  _submit(BuildContext context) async {
+    try{
+      await FirebaseConstant.setCollection(
+          collectionName: StringConstant.taskCollection, value: {
+        'userId': await firebaseConstant.userId,
+        'title': _titleController.text,
+        'description': _discriptionController.text,
+        'dateTime': DateTime.now(),
+        'timeHistory': [],
+        'status': 'todo',
+      });
+      _titleController.clear();
+      _discriptionController.clear();
+      Navigator.pop(context);
+    }catch(e){
+      print(e.toString());
+    }
+
   }
 }

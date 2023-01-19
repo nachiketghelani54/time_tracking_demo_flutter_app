@@ -25,16 +25,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
  late TabController tabController;
- final FirebaseAuth _auth = FirebaseAuth.instance;
 
  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     tabController = TabController(length: 3, vsync: this);
-    _auth.signInAnonymously().then((value) {
-      print(value.user);
-    });
   }
 
 

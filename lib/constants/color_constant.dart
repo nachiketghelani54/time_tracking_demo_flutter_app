@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class TaskColors {
   TaskColors._();
   static const primaryColor = Color(0xff3B5DE7);
@@ -14,4 +16,7 @@ class TaskColors {
   static const buttonColor = Color(0xffFFFFFF);
   static const darkButtonColor = Color(0xff3892ba);
   static const greenCompletedColor = Color(0xff00A407);
+  static const yellowColor = Colors.yellow;
+  static const redColor = Colors.red;
+  static const greenColor = Colors.green;
 }

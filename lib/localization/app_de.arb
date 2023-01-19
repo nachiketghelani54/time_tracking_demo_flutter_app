@@ -17,6 +17,9 @@
          "title_name":                    "Titel",
          "description":                   "Beschreibung",
          "create_task":                      "Aufgabe erstellen",
-         "create_new_task":                   "Neue Aufgabe erstellen"
+         "create_new_task":                   "Neue Aufgabe erstellen",
+         "edit":                   "Bearbeiten",
+         "create":                   "Erstellen",
+         "move":                   "Umzug"
  }
 

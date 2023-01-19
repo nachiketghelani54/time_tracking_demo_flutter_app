@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:time_tracking_demo/constants/notification_helper.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
 import 'package:time_tracking_demo/constants/shared_preference.dart';
 import 'package:time_tracking_demo/localization/i10n.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSharedPreferences();
   await Firebase.initializeApp();
+  NotificationService().initNotification();
   runApp(const MyApp());
 }
 
@@ -36,8 +38,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-          ThemeBloc(localizationHelper: LocalizationHelper())
-            ..add(const FetchThemeFromSharedPref()),
+              ThemeBloc(localizationHelper: LocalizationHelper())
+                ..add(const FetchThemeFromSharedPref()),
         ),
         BlocProvider(
           create: (context) =>

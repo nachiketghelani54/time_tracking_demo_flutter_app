@@ -17,6 +17,8 @@
     "title_name": "Title Name",
     "description": "Description",
     "create_task": "Create Task",
-    "create_new_task": "Create New Task"
-
+    "create_new_task": "Create New Task",
+    "edit": "Edit",
+    "create": "Create",
+    "move": "Move"
 }

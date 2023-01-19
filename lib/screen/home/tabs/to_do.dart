@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
@@ -170,6 +171,7 @@ class ToDoScreen extends StatelessWidget {
              )),
        ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(CupertinoIcons.add),backgroundColor: TaskColors.primaryColor,elevation: 0,),
     );
   }
 }

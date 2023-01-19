@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ShadeColors {
   ShadeColors._();
-  static const primaryColor = Color(0xff3892ba);
+  static const primaryColor = Color(0xff3B5DE7);
   static const backgroundColor = Color(0xffFFFFFF);
   static const primaryTextColor = Color(0xff000000);
   static const cardColor = Color(0xff000000);

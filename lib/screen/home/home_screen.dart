@@ -43,6 +43,7 @@ appBar: AppBar(
             Text("In Progress"),
             Text("Done"),
           ],controller: tabController,
+          unselectedLabelColor: TaskColors.hintColor,
           labelColor: TaskColors.primaryColor,
             labelStyle: TextStyle(fontSize: 16,fontWeight: FontWeight.w500,color: TaskColors.primaryColor),
             unselectedLabelStyle: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: TaskColors.hintColor),

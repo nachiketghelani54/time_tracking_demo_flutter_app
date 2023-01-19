@@ -12,4 +12,5 @@ class TaskColors {
   static const hintColor = Color(0xff9DA4B1);
   static const buttonColor = Color(0xffFFFFFF);
   static const darkButtonColor = Color(0xff3892ba);
+  static const greenCompletedColor = Color(0xff00A407);
 }

@@ -127,41 +127,89 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                           ),
                                         ),
                                         PopupMenuItem(
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Image.asset(
-                                                "assets/images/add.png",
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(context.localization.create,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                  )),
-                                            ],
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddNewTaskScreen(
+                                                            isEdit: false),
+                                                  ));
+                                            },
+                                            child: Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/add.png",
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                    context.localization.create,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                    )),
+                                              ],
+                                            ),
                                           ),
                                           onTap: () {},
                                         ),
                                         PopupMenuItem(
-                                          child: Row(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/images/move.png"),
-                                              const SizedBox(
-                                                width: 5,
+                                          child: Container(
+                                            decoration: const BoxDecoration(),
+                                            child: PopupMenuButton(
+                                              constraints: const BoxConstraints(
+                                                  maxWidth: 130),
+                                              offset: const Offset(110, 0),
+                                              color: Theme.of(context)
+                                                  .appBarTheme
+                                                  .backgroundColor,
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                      "assets/images/move.png"),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    context.localization.move,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                context.localization.move,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
+                                              itemBuilder: (ctx) => [
+                                                PopupMenuItem(
+                                                  child: Text(
+                                                    context.localization.to_do,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                                PopupMenuItem(
+                                                  child: Text(
+                                                      context.localization
+                                                          .done,
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                      )),
+                                                  onTap: () {},
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           onTap: () {},
                                         ),

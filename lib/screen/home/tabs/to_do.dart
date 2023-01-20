@@ -151,14 +151,14 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                 ListTile(
                                   title: Text(
                                     state.taskList?[index].title ?? "",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: TaskColors.lightBlackColor,
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: Text(
                                     state.taskList?[index].description ?? "",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: TaskColors.hintColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),
@@ -205,41 +205,89 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                           ),
                                         ),
                                         PopupMenuItem(
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Image.asset(
-                                                "assets/images/add.png",
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(context.localization.create,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                  )),
-                                            ],
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddNewTaskScreen(
+                                                            isEdit: false),
+                                                  ));
+                                            },
+                                            child: Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/add.png",
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                    context.localization.create,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                    )),
+                                              ],
+                                            ),
                                           ),
                                           onTap: () {},
                                         ),
                                         PopupMenuItem(
-                                          child: Row(
-                                            children: [
-                                              Image.asset(
-                                                  "assets/images/move.png"),
-                                              const SizedBox(
-                                                width: 5,
+                                          child: Container(
+                                            decoration: const BoxDecoration(),
+                                            child: PopupMenuButton(
+                                              constraints: const BoxConstraints(
+                                                  maxWidth: 130),
+                                              offset: const Offset(110, 0),
+                                              color: Theme.of(context)
+                                                  .appBarTheme
+                                                  .backgroundColor,
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                      "assets/images/move.png"),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    context.localization.move,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                context.localization.move,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
+                                              itemBuilder: (ctx) => [
+                                                PopupMenuItem(
+                                                  child: Text(
+                                                    context.localization
+                                                        .in_progress,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                                PopupMenuItem(
+                                                  child: Text(
+                                                      context.localization.done,
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                      )),
+                                                  onTap: () {},
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           onTap: () {},
                                         ),

@@ -16,11 +16,13 @@ import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
 import 'localization/bloc/localization_bloc.dart';
 import 'localization/localization_delegate.dart';
 import 'localization/localization_helper.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initSharedPreferences();
   await Firebase.initializeApp();
+  await initSharedPreferences();
   NotificationService().initNotification();
   runApp(const MyApp());
 }
@@ -34,8 +36,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-          LocalizationsBloc(localizationHelper: LocalizationHelper())
-            ..add(const FetchLocaleFromSharedPref()),
+              LocalizationsBloc(localizationHelper: LocalizationHelper())
+                ..add(const FetchLocaleFromSharedPref()),
         ),
         BlocProvider(
           create: (context) =>
@@ -44,11 +46,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-          HistoryBloc(firebaseConstant: FirebaseConstant()),
+              HistoryBloc(firebaseConstant: FirebaseConstant()),
         ),
         BlocProvider(
-          create: (context) =>
-         BottomNavBloc()..add(const ChangeTab(0)),
+          create: (context) => BottomNavBloc()..add(const ChangeTab(0)),
         ),
         BlocProvider(
           create: (context) =>
@@ -86,7 +87,7 @@ class MyApp extends StatelessWidget {
       //   Locale('en', ''),
       //   Locale('de', ''),
       // ],
-      home:  BottomNavBarScreen(),
+      home: const BottomNavBarScreen(),
       // routes: {
       //   SiteSelectionPage.routeName: (context) => const SiteSelectionPage(),
       //   ExpenseTab.routeName: (context) => const ExpenseTab(),

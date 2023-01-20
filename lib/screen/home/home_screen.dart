@@ -34,13 +34,15 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
-    tabController.animateTo(widget.index);
     tabController.addListener(() {
       if (kDebugMode) {
         print(tabController.index);
       }
+      context.read<TabBloc>().add(ClearDataEvent(tabController.index));
       context.read<TabBloc>().add(ChangeTabEvent(tabController.index));
     });
+    // tabController.animateTo(widget.index);
+
   }
 
   @override

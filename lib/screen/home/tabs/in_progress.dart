@@ -212,6 +212,8 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                                           value: {
                                                             "status" :StringConstant.todoString
                                                           }).then((value) {
+                                                        context.read<TabBloc>().add(
+                                                            ChangeTabEvent(index ?? 0));
                                                         Navigator.of(
                                                             context)
                                                             .pushAndRemoveUntil(
@@ -250,6 +252,8 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                                           value: {
                                                             "status" :StringConstant.doneString
                                                           }).then((value){
+                                                        context.read<TabBloc>().add(
+                                                            ChangeTabEvent(index ?? 0));
                                                         Navigator.of(
                                                             context)
                                                             .pushAndRemoveUntil(

@@ -48,8 +48,9 @@ class _TaskScreenState extends State<TaskScreen> {
                       Container(
                         height: 140,
                         width: 8,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
+                        decoration: BoxDecoration(
+                          color: getColor(
+                              state.taskList?[index].status ?? ''),
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(6),
                               bottomLeft: Radius.circular(6)),
@@ -282,17 +283,25 @@ class _TaskScreenState extends State<TaskScreen> {
                                           List<String> startTime = state.taskList![index].startTime!;
                                           List<String> endTime = state.taskList![index].endTime!;
                                           List<String> totalHistory = state.taskList![index].timeHistory!;
+                                            Duration? total;
 
                                           if(state.taskList![index].isStart ?? false){
                                             endTime.add(DateTime.now().toString());
                                             totalHistory.add(DateTime.parse(endTime.last).difference(DateTime.parse(startTime.last)).toString());
+                                            for(int i =0 ; i< state.taskList![index].timeHistory!.length ; i++){
+                                              Duration dt = parseDuration(state.taskList![index].timeHistory![i]);
+                                              total = total ==  null ? parseDuration(state.taskList![index].timeHistory![i]) :
+
+                                              total = Duration(days: total.inDays + dt.inDays,microseconds: total.inMicroseconds + dt.inMicroseconds,milliseconds: total.inMilliseconds + dt.inMilliseconds,minutes: total.inMinutes + dt.inMinutes,hours: total.inHours + dt.inHours,seconds: total.inSeconds + dt.inSeconds);
+                                            }
                                             await FirebaseConstant.updateCollection(
                                                 docId: state.taskList?[index].id ?? '',
                                                 collectionName: StringConstant.taskCollection,
                                                 value: {
                                                   'timeHistory': totalHistory,
                                                   'endTime':endTime,
-                                                  'isStart':false
+                                                  'isStart':false,
+                                                  'totalOfDuration' : total.toString()
                                                 });
                                           }else{
                                             startTime.add(DateTime.now().toString());

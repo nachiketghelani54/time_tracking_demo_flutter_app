@@ -11,6 +11,8 @@ class TabBloc extends Bloc<TabEvent, TabState> {
   TabBloc() : super( TabLoadingState()) {
     on<FetchTabEvent>(_fetchHistoryToState);
     on<ChangeTabEvent>(_changeLocaleEventToState);
+    on<ClearDataEvent>(_clearData);
+
   }
 
 
@@ -20,6 +22,16 @@ class TabBloc extends Bloc<TabEvent, TabState> {
       ) async {
     final task = await FirebaseConstant.task1(event.selectedTab);
     
+
+    emit(TabSuccess(taskList: task,selectTab: event.selectedTab));
+  }
+
+  Future<void> _clearData(
+      ClearDataEvent event,
+      Emitter<TabState> emit,
+      ) async {
+    List<TaskModel> task = [];
+
 
     emit(TabSuccess(taskList: task,selectTab: event.selectedTab));
   }

@@ -1,5 +1,7 @@
 
 
+import 'package:time_tracking_demo/constants/function.dart';
+
 class TaskModel {
   String? id;
   String? userId;
@@ -7,6 +9,7 @@ class TaskModel {
   String? description;
   String? status;
   DateTime? dateTime;
+  Duration? totalOfDuration;
   List<String>? timeHistory;
   List<String>? startTime;
   List<String>? endTime;
@@ -19,6 +22,7 @@ class TaskModel {
     this.description = '',
     this.status = '',
     this.dateTime,
+    this.totalOfDuration,
     this.timeHistory = const [],
     this.startTime = const [],
     this.endTime = const [],
@@ -32,10 +36,13 @@ class TaskModel {
     String? description,
     String? status,
     DateTime? dateTime,
+    Duration? totalOfDuration,
+
     List<String>? timeHistory,
     List<String>? startTime,
     List<String>? endTime,
     bool? isStart
+
   }) =>
       TaskModel(
         id: id ?? this.id,
@@ -44,6 +51,7 @@ class TaskModel {
         description: description ?? this.description,
         status: status ?? this.status,
         dateTime: dateTime ?? dateTime,
+          totalOfDuration: totalOfDuration ?? totalOfDuration,
         timeHistory: timeHistory ?? this.timeHistory,
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
@@ -57,6 +65,7 @@ class TaskModel {
     result.addAll({'description': description});
     result.addAll({'status': status});
     result.addAll({'dateTime': dateTime ?? DateTime.now()});
+    result.addAll({'totalOfDuration': totalOfDuration ?? Duration()});
     result.addAll({'timeHistory': timeHistory});
     result.addAll({'startTime': startTime});
     result.addAll({'endTime': endTime});
@@ -73,6 +82,7 @@ class TaskModel {
       status: map['status'] ?? '',
       dateTime: DateTime.fromMillisecondsSinceEpoch(
           map['dateTime'].millisecondsSinceEpoch),
+        totalOfDuration: parseDuration(map['totalOfDuration']) ?? Duration(),
       timeHistory: map['timeHistory'] == [] ? [] : List<String>.from(map['timeHistory']),
       startTime: map['startTime'] == [] ? [] : List<String>.from(map['startTime']),
       endTime: map['endTime'] == [] ? [] : List<String>.from(map['endTime']),

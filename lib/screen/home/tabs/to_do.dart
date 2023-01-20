@@ -266,6 +266,8 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                                                           .inProgressString
                                                                 }).then(
                                                                 (value) {
+                                                                  context.read<TabBloc>().add(
+                                                                      ChangeTabEvent(index ?? 0));
                                                               Navigator.of(context).pushAndRemoveUntil(
                                                                   MaterialPageRoute(
                                                                       builder: (context) =>
@@ -312,6 +314,8 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                                                           .doneString
                                                                 }).then(
                                                                 (value) {
+                                                                  context.read<TabBloc>().add(
+                                                                      ChangeTabEvent(index ?? 0));
                                                               Navigator.of(context).pushAndRemoveUntil(
                                                                   MaterialPageRoute(
                                                                       builder: (context) =>

@@ -255,6 +255,8 @@ class _DoneScreenState extends State<DoneScreen> {
                                                                           .todoString
                                                                 }).then(
                                                                 (value) {
+                                                                  context.read<TabBloc>().add(
+                                                                      ChangeTabEvent(index ?? 0));
                                                               Navigator.of(
                                                                       context)
                                                                   .pushAndRemoveUntil(
@@ -302,6 +304,8 @@ class _DoneScreenState extends State<DoneScreen> {
                                                                           .inProgressString
                                                                 }).then(
                                                                 (value) {
+                                                                  context.read<TabBloc>().add(
+                                                                      ChangeTabEvent(index ?? 0));
                                                                   Navigator.of(
                                                                       context)
                                                                       .pushAndRemoveUntil(

@@ -25,3 +25,13 @@ class ChangeTabEvent extends TabEvent {
   @override
   List<Object> get props => [selectedTab];
 }
+
+class ClearDataEvent extends TabEvent {
+ // final List<TaskModel> taskList;
+  ClearDataEvent(this.selectedTab);
+   // List<TaskModel> taskList = [];
+  final int selectedTab;
+
+  @override
+  List<Object> get props => [selectedTab];
+}

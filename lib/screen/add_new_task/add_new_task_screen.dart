@@ -163,7 +163,8 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               'status': 'todo',
               'startTime': [],
               'endTime': [],
-              'isPlay': false
+              'isPlay': false,
+              'totalOfDuration':Duration().toString()
             });
         // FirebaseAnalytics.instance.logEvent(
         //   name: "CreateTask",

@@ -34,24 +34,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HistoryBloc, HistoryState>(
-      builder: (context, state) {
- // for(){}
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: TaskColors.primaryColor,
-            foregroundColor: Colors.white,
-            title: Text(
-              context.localization.history,
-              style: const TextStyle(
-                  color: TaskColors.backgroundColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
-            ),
-            centerTitle: true,
-            elevation: 0,
-          ),
-          body: Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: TaskColors.primaryColor,
+        foregroundColor: Colors.white,
+        title: Text(
+          context.localization.history,
+          style: const TextStyle(
+              color: TaskColors.backgroundColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: BlocBuilder<HistoryBloc, HistoryState>(
+        builder: (context, state) {
+          if(state is HistoryInitial ){
+            return const Center(child: CircularProgressIndicator(),);
+          }
+          return Column(
             children: [
               const SizedBox(
                 height: 12,
@@ -95,9 +97,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       ]),
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       ListTile(
                                         title: Text(
@@ -135,10 +137,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   child: Text(
                                                     DateFormat("d MMM yyyy")
                                                         .format(state
-                                                                .taskList?[
-                                                                    index]
-                                                                .dateTime ??
-                                                            DateTime.now()),
+                                                        .taskList?[
+                                                    index]
+                                                        .dateTime ??
+                                                        DateTime.now()),
                                                     style: FontStyleText
                                                         .text12W400LightBlack,
                                                   ),
@@ -153,11 +155,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 ),
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     DateFormat("hh:mm").format(
                                                         state.taskList?[index]
-                                                                .dateTime ??
+                                                            .dateTime ??
                                                             DateTime.now()),
                                                     style: FontStyleText
                                                         .text12W400LightBlack,
@@ -172,7 +174,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                               ),
                                               child: Text(
                                                 context.localization.completed,
@@ -208,9 +210,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
               )
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

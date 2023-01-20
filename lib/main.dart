@@ -15,7 +15,7 @@ import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
 import 'localization/bloc/localization_bloc.dart';
 import 'localization/localization_delegate.dart';
 import 'localization/localization_helper.dart';
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSharedPreferences();
@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeState.appTheme,
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         ShadeAppLocalizationsDelegate(),

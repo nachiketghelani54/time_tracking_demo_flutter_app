@@ -20,6 +20,8 @@
          "create_new_task":                   "Neue Aufgabe erstellen",
          "edit":                   "Bearbeiten",
          "create":                   "Erstellen",
-         "move":                   "Umzug"
+         "move":                   "Umzug",
+         "edit_task":  "Aufgabe bearbeiten",
+         "Save Task":  "Aufgabe speichern"
  }
 

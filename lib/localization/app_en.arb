@@ -20,5 +20,8 @@
     "create_new_task": "Create New Task",
     "edit": "Edit",
     "create": "Create",
-    "move": "Move"
+    "move": "Move",
+    "edit_task": "Edit Task",
+    "save_task": "Save Task"
+
 }

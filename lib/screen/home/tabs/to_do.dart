@@ -6,55 +6,51 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
+import 'package:time_tracking_demo/main.dart';
 import 'package:time_tracking_demo/screen/add_new_task/add_new_task_screen.dart';
 
-import '../../../constants/popUp_helper.dart';
-
 class ToDoScreen extends StatefulWidget {
-
-
   @override
   State<ToDoScreen> createState() => _ToDoScreenState();
 }
 
 class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
-    Timer? timer;
+  Timer? timer;
 
-    DateTime? dateTime;
+  DateTime? dateTime;
 
-
-    Future saveCurrentDateTime() async{
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-     await preferences.setString("date_time", DateTime.now().toString());
-    }
-
-    getPastDateTime() async{
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-     var data =  preferences.getString("date_time");
-    if(data != null){
-      dateTime = DateTime.parse(data.toString());
-    }
-    }
-
-  startTimer() async{
-      Timer.periodic(const Duration(seconds: 1), (time) async {
-           await saveCurrentDateTime();
-         if(dateTime != null){
-           print(dateTime!.second + 1);
-         }else{
-           print(time.tick);
-         }
-      });
+  Future saveCurrentDateTime() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString("date_time", DateTime.now().toString());
   }
 
-    @override
-    void didChangeAppLifecycleState(AppLifecycleState state) {
-    if(state == AppLifecycleState.detached){
+  getPastDateTime() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var data = preferences.getString("date_time");
+    if (data != null) {
+      dateTime = DateTime.parse(data.toString());
+    }
+  }
+
+  startTimer() async {
+    Timer.periodic(const Duration(seconds: 1), (time) async {
+      await saveCurrentDateTime();
+      if (dateTime != null) {
+        print(dateTime!.second + 1);
+      } else {
+        print(time.tick);
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
       saveCurrentDateTime().then((value) {
         print("app terminated");
-
       });
-    }}
+    }
+  }
 
   @override
   void dispose() {
@@ -70,6 +66,7 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
     super.initState();
     getPastDateTime();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,8 +110,8 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const ListTile(
-                              title: Text(
+                            ListTile(
+                              title: const Text(
                                 "SAL | Create Api definition for ",
                                 style: TextStyle(
                                     color: TaskColors.lightBlackColor,
@@ -128,7 +125,88 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500),
                               ),
-                              trailing: PopUpHelper(),
+                              trailing: Container(
+                                decoration: const BoxDecoration(),
+                                child: PopupMenuButton(
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 130),
+                                  offset: const Offset(110, 0),
+                                  color: Theme.of(context)
+                                      .appBarTheme
+                                      .backgroundColor,
+                                  child: const Icon(Icons.more_vert),
+                                  itemBuilder: (ctx) => [
+                                    PopupMenuItem(
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddNewTaskScreen(
+                                                        isEdit: true),
+                                              ));
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                                "assets/images/edit.png"),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              context.localization.edit,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    PopupMenuItem(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Image.asset(
+                                            "assets/images/add.png",
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(context.localization.create,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                              )),
+                                        ],
+                                      ),
+                                      onTap: () {},
+                                    ),
+                                    PopupMenuItem(
+                                      child: Row(
+                                        children: [
+                                          Image.asset("assets/images/move.png"),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            context.localization.move,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      onTap: () {},
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                             const Divider(
                                 color: TaskColors.hintColor,

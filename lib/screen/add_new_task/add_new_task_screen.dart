@@ -7,20 +7,29 @@ import 'package:time_tracking_demo/localization/localization.dart';
 import '../../constants/color_constant.dart';
 
 class AddNewTaskScreen extends StatelessWidget {
-  AddNewTaskScreen({Key? key}) : super(key: key);
+  AddNewTaskScreen({Key? key, this.isEdit, this.editable}) : super(key: key);
+  bool? isEdit = false;
+  var editable;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _discriptionController = TextEditingController();
 
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _discriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+      appBar: AppBar(
         backgroundColor: TaskColors.primaryColor,
         foregroundColor: Colors.white,
-        title: Text(context.localization.create_new_task,style: TextStyle(color: TaskColors.backgroundColor,fontSize: 18,fontWeight: FontWeight.w500),),
+        title: Text(
+          isEdit == true
+              ? context.localization.edit_task
+              : context.localization.create_new_task,
+          style: const TextStyle(
+              color: TaskColors.backgroundColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w500),
+        ),
         centerTitle: true,
         elevation: 0,
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -29,39 +38,46 @@ class AddNewTaskScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(context.localization.title_name,style: FontStyleText.text14W400Hint,),
+              child: Text(
+                context.localization.title_name,
+                style: FontStyleText.text14W400Hint,
+              ),
             ),
             TextField(
               controller: _titleController,
               decoration: InputDecoration(
-                hintText: "SAL | Create Api definition for ",
+                  hintText: "SAL | Create Api definition for ",
                   hintStyle: FontStyleText.text14W400Hint,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))
-              ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8))),
             ),
-            SizedBox(height: 20,),
-
+            const SizedBox(
+              height: 20,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text(context.localization.description,style: FontStyleText.text14W400Hint,),
+              child: Text(
+                context.localization.description,
+                style: FontStyleText.text14W400Hint,
+              ),
             ),
             TextField(
               controller: _discriptionController,
               decoration: InputDecoration(
-                  hintText: "Website UI design for...",
-                  hintStyle: FontStyleText.text14W400Hint,
-
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-
+                hintText: "Website UI design for...",
+                hintStyle: FontStyleText.text14W400Hint,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               ),
               minLines: 4,
               maxLines: null,
             ),
-            SizedBox(height: 50,),
-
+            const SizedBox(
+              height: 50,
+            ),
             GestureDetector(
-              onTap: (){
-                _submit(context);
+              onTap: () {
+                isEdit == true ? _submit(context) : _submit(context);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -71,7 +87,12 @@ class AddNewTaskScreen extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(context.localization.create_task,style: FontStyleText.text16W500White,),
+                child: Text(
+                  isEdit == true
+                      ? context.localization.save_task
+                      : context.localization.create_task,
+                  style: FontStyleText.text16W500White,
+                ),
               ),
             )
           ],
@@ -79,24 +100,26 @@ class AddNewTaskScreen extends StatelessWidget {
       ),
     );
   }
+
   FirebaseConstant firebaseConstant = FirebaseConstant();
+
   _submit(BuildContext context) async {
-    try{
+    try {
       await FirebaseConstant.setCollection(
-          collectionName: StringConstant.taskCollection, value: {
-        'userId': await firebaseConstant.userId,
-        'title': _titleController.text,
-        'description': _discriptionController.text,
-        'dateTime': DateTime.now(),
-        'timeHistory': [],
-        'status': 'todo',
-      });
+          collectionName: StringConstant.taskCollection,
+          value: {
+            'userId': await firebaseConstant.userId,
+            'title': _titleController.text,
+            'description': _discriptionController.text,
+            'dateTime': DateTime.now(),
+            'timeHistory': [],
+            'status': 'todo',
+          });
       _titleController.clear();
       _discriptionController.clear();
       Navigator.pop(context);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
     }
-
   }
 }

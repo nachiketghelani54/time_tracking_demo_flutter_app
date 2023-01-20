@@ -9,8 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
+import 'package:time_tracking_demo/models/task_model.dart';
 import 'package:time_tracking_demo/screen/add_new_task/add_new_task_screen.dart';
 import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
+
+import '../../../constants/firebase_constant.dart';
+import '../../../constants/string_constant.dart';
 
 class ToDoScreen extends StatefulWidget {
   @override
@@ -18,85 +22,12 @@ class ToDoScreen extends StatefulWidget {
 }
 
 class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
-  Timer? timer;
-  int currentTotalVal = 0;
 
-  // DateTime? dateTime;
-  PrefTimeModel? prefTimeModel;
-
-  Future saveCurrentDateTime(bool isPlay) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    PrefTimeModel prefTimeModel1 = PrefTimeModel(
-        isPlay: isPlay,
-        startDateTime: DateTime.now().toString(),
-        endDateTime: DateTime.now().toString());
-    prefTimeModel = PrefTimeModel(
-        isPlay: isPlay,
-        startDateTime: DateTime.now().toString(),
-        endDateTime: DateTime.now().toString());
-    await preferences.setString(
-        "date_time", jsonEncode(prefTimeModel1.toMap()));
-  }
-
-  getPastDateTime() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var data = preferences.getString("date_time");
-    if (data != null) {
-      var decodeData = jsonDecode(data);
-      prefTimeModel = PrefTimeModel.fromJson(decodeData);
-      if (prefTimeModel!.isPlay) {
-        startTimer();
-      }
-    }
-  }
-
-  startTimer() async {
-    saveCurrentDateTime(true);
-    timer = Timer.periodic(const Duration(seconds: 1), (time) async {
-      // if(prefTimeModel != null){
-      //   currentTotalVal = DateTime.now().difference(DateTime.parse(prefTimeModel!.startDateTime)).inSeconds + 1;
-      //   // (DateTime.now() - DateTime.parse(prefTimeModel!.currentDateTime)) + prefTimeModel!.currentVal+ 1 ;
-      //   print(currentTotalVal);
-      // }else{
-      //   currentTotalVal++;
-      //   print(currentTotalVal);
-      // }
-
-      if (prefTimeModel!.isPlay) {
-        currentTotalVal = DateTime.now()
-            .difference(DateTime.parse(prefTimeModel!.startDateTime))
-            .inSeconds;
-        currentTotalVal++;
-      } else {
-        currentTotalVal = DateTime.parse(prefTimeModel!.endDateTime!)
-            .difference(DateTime.parse(prefTimeModel!.startDateTime))
-            .inSeconds;
-      }
-    });
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.detached) {
-      // saveCurrentDateTime().then((value) {
-      //   print("app terminated");
-      //
-      // });
-    }
-  }
-
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //
-  //   super.dispose();
-  //   timer?.cancel();
-  // }
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-    getPastDateTime();
+
   }
 
   @override
@@ -350,38 +281,33 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                       ),
                                       Expanded(child: SizedBox()),
                                       InkWell(
-                                        onTap: () async {
-                                          // if(prefTimeModel == null){
-                                          //
-                                          //
-                                          // }else{
+                                        onTap: () async{
+                                          List<String> startTime = state.taskList![index].startTime!;
+                                          List<String> endTime = state.taskList![index].endTime!;
+                                          List<String> totalHistory = state.taskList![index].timeHistory!;
 
-                                          //
-                                          // }
-
-                                          if (prefTimeModel != null) {
-                                            if (prefTimeModel!.isPlay) {
-                                              SharedPreferences preferences =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              PrefTimeModel prefTimeModel1 =
-                                                  PrefTimeModel(
-                                                      isPlay: false,
-                                                      startDateTime:
-                                                          DateTime.now()
-                                                              .toString());
-                                              prefTimeModel = prefTimeModel1;
-                                              await preferences.setString(
-                                                  "date_time",
-                                                  jsonEncode(
-                                                      prefTimeModel1.toMap()));
-                                              timer?.cancel();
-                                            } else {
-                                              startTimer();
-                                            }
-                                          } else {
-                                            startTimer();
-                                          }
+                                         if(state.taskList![index].isStart ?? false){
+                                            endTime.add(DateTime.now().toString());
+                                            totalHistory.add(DateTime.parse(endTime.last).difference(DateTime.parse(startTime.last)).toString());
+                                           await FirebaseConstant.updateCollection(
+                                               docId: state.taskList?[index].id ?? '',
+                                               collectionName: StringConstant.taskCollection,
+                                               value: {
+                                                 'timeHistory': totalHistory,
+                                                 'endTime':endTime,
+                                                 'isStart':false
+                                               });
+                                         }else{
+                                           startTime.add(DateTime.now().toString());
+                                           await FirebaseConstant.updateCollection(
+                                               docId: state.taskList?[index].id ?? '',
+                                               collectionName: StringConstant.taskCollection,
+                                               value: {
+                                                 'startTime':startTime,
+                                                 'isStart':true
+                                               });
+                                         }
+                                          context.read<TabBloc>().add(ChangeTabEvent(index ?? 0));
                                         },
                                         child: Container(
                                           height: 35,
@@ -393,7 +319,7 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                             color: TaskColors.primaryColor,
                                           ),
                                           child: Text(
-                                            context.localization.stop,
+                                            state.taskList![index].isStart ?? false ? context.localization.stop : context.localization.start,
                                             style:
                                                 FontStyleText.text14W500White,
                                           ),

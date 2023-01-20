@@ -21,7 +21,6 @@ class TabBloc extends Bloc<TabEvent, TabState> {
     final task = await FirebaseConstant.task1(event.selectedTab);
     
 
-    
     emit(TabSuccess(taskList: task,selectTab: event.selectedTab));
   }
 

@@ -22,6 +22,8 @@
      "create": "Erstellen",
      "move": "Umzug",
      "edit_task": "Aufgabe bearbeiten",
-     "save_task": "Aufgabe speichern"
+     "Save Task": "Aufgabe speichern",
+     "start": "Anfang"
+
  }
 

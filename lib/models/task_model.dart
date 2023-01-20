@@ -8,6 +8,9 @@ class TaskModel {
   String? status;
   DateTime? dateTime;
   List<String>? timeHistory;
+  List<String>? startTime;
+  List<String>? endTime;
+  bool? isStart;
 
   TaskModel({
     this.id = '',
@@ -17,6 +20,9 @@ class TaskModel {
     this.status = '',
     this.dateTime,
     this.timeHistory = const [],
+    this.startTime = const [],
+    this.endTime = const [],
+    this.isStart,
   });
 
   TaskModel copyWith({
@@ -27,6 +33,9 @@ class TaskModel {
     String? status,
     DateTime? dateTime,
     List<String>? timeHistory,
+    List<String>? startTime,
+    List<String>? endTime,
+    bool? isStart
   }) =>
       TaskModel(
         id: id ?? this.id,
@@ -36,6 +45,9 @@ class TaskModel {
         status: status ?? this.status,
         dateTime: dateTime ?? dateTime,
         timeHistory: timeHistory ?? this.timeHistory,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+        isStart: isStart ?? this.isStart
       );
 
   Map<String, dynamic> toMap() {
@@ -46,6 +58,9 @@ class TaskModel {
     result.addAll({'status': status});
     result.addAll({'dateTime': dateTime ?? DateTime.now()});
     result.addAll({'timeHistory': timeHistory});
+    result.addAll({'startTime': startTime});
+    result.addAll({'endTime': endTime});
+    result.addAll({'isStart': isStart});
     return result;
   }
 
@@ -59,6 +74,9 @@ class TaskModel {
       dateTime: DateTime.fromMillisecondsSinceEpoch(
           map['dateTime'].millisecondsSinceEpoch),
       timeHistory: map['timeHistory'] == [] ? [] : List<String>.from(map['timeHistory']),
+      startTime: map['startTime'] == [] ? [] : List<String>.from(map['startTime']),
+      endTime: map['endTime'] == [] ? [] : List<String>.from(map['endTime']),
+      isStart: map['isStart'] ?? false
     );
   }
 }

@@ -15,3 +15,5 @@ class FetchHistoryEvent extends HistoryEvent {
   @override
   List<Object> get props => [];
 }
+
+

@@ -10,6 +10,7 @@ import 'package:time_tracking_demo/localization/i10n.dart';
 import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bloc/bottom_nav_bloc.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bottom_nav_bar.dart';
+import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
 
 import 'localization/bloc/localization_bloc.dart';
@@ -49,6 +50,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
          BottomNavBloc()..add(const ChangeTab(0)),
         ),
+        BlocProvider(
+          create: (context) =>
+         TabBloc()..add(FetchTabEvent(0))),
+
       ],
       child: BlocBuilder<LocalizationsBloc, LocalizationsState>(
         builder: (context, localizationsState) {

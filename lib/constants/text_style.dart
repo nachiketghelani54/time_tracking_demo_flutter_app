@@ -11,6 +11,6 @@ class FontStyleText{
   static TextStyle text14W400Hint = TextStyle(color: TaskColors.hintColor,fontSize: 14,fontWeight: FontWeight.w400);
   static TextStyle text14W500White = TextStyle(fontWeight: FontWeight.w500,color: TaskColors.backgroundColor,fontSize: 14);
   static TextStyle text14W500Green = TextStyle(fontWeight: FontWeight.w500,color: TaskColors.greenCompletedColor,fontSize: 14);
-  static TextStyle text16W500White = TextStyle(fontWeight: FontWeight.w500,color: TaskColors.backgroundColor,fontSize: 16);
+    static TextStyle text16W500White = TextStyle(fontWeight: FontWeight.w500,color: TaskColors.backgroundColor,fontSize: 16);
   static TextStyle text22W500White = TextStyle(fontWeight: FontWeight.w500,color: TaskColors.backgroundColor,fontSize: 22);
 }

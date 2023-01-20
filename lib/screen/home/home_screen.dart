@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bloc/bottom_nav_bloc.dart';
+import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 import 'package:time_tracking_demo/screen/home/tabs/done.dart';
 import 'package:time_tracking_demo/screen/home/tabs/in_progress.dart';
 import 'package:time_tracking_demo/screen/home/tabs/to_do.dart';
@@ -28,6 +29,10 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() {
+      print(tabController.index);
+      context.read<TabBloc>().add(ChangeTabEvent(tabController.index));
+    });
   }
 
   @override

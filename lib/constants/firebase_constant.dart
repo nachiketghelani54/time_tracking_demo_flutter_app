@@ -7,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
 import 'package:time_tracking_demo/models/task_model.dart';
 
+import 'function.dart';
+
 class FirebaseConstant {
   static final FirebaseFirestore _fireStoreData = FirebaseFirestore.instance;
   static final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
@@ -39,6 +41,31 @@ class FirebaseConstant {
           .get();
       List<TaskModel> task1 = task.docs.toList().map((e) => TaskModel.fromMap(e.id ,e.data())).toList();
       return task1;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<List<TaskModel>> task1(test1) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> task = await _fireStoreData
+          .collection(StringConstant.taskCollection)
+          .get();
+      List<TaskModel> task1 = task.docs.toList().map((e) => TaskModel.fromMap(e.id ,e.data())).toList();
+      List<TaskModel> task2 = [];
+       task2.addAll(task1.where((element) => element.status == getTask(test1)));
+      // if(test1 == 0){
+      //   task1.addAll(task1.where((element) => element.status == getTask(test1)));
+      //
+      // }else if(test1 == 1){
+      //   task1.addAll(task1.where((element) => element.status == "inProgress"));
+      //
+      // }else{
+      //   task1.addAll(task1.where((element) => element.status == "done"));
+      //
+      // }
+
+      return task2;
     } catch (e) {
       return [];
     }

@@ -13,3 +13,13 @@ Color getColor(String task) {
     return TaskColors.yellowColor;
   }
 }
+
+String getTask(int task) {
+  if (task == 1) {
+    return StringConstant.inProgressString;
+  } else if (task == 2) {
+    return StringConstant.doneString;
+  } else {
+    return StringConstant.todoString;
+  }
+}

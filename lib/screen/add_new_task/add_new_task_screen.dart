@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
@@ -8,13 +9,27 @@ import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 
 import '../../constants/color_constant.dart';
 
-class AddNewTaskScreen extends StatelessWidget {
-  AddNewTaskScreen({Key? key,required this.isEdit,this.userId,this.index}) : super(key: key);
+class AddNewTaskScreen extends StatefulWidget {
   String? userId;
+  String? title;
+  String? description;
   int? index;
   bool isEdit;
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _discriptionController = TextEditingController();
+  AddNewTaskScreen({Key? key,required this.isEdit,this.userId,this.title,this.description,this.index}) : super(key: key);
+
+  @override
+  State<AddNewTaskScreen> createState() => _AddNewTaskScreenState();
+}
+
+class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
+   TextEditingController _titleController = TextEditingController();
+   TextEditingController _descriptionController = TextEditingController();
+  @override
+  void initState() {
+     _titleController = TextEditingController(text: widget.title ??'');
+     _descriptionController = TextEditingController(text:  widget.description ?? '');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +38,7 @@ class AddNewTaskScreen extends StatelessWidget {
         backgroundColor: TaskColors.primaryColor,
         foregroundColor: Colors.white,
         title: Text(
-          isEdit == true
+          widget.isEdit == true
               ? context.localization.edit_task
               : context.localization.create_new_task,
           style: const TextStyle(
@@ -47,7 +62,7 @@ class AddNewTaskScreen extends StatelessWidget {
               ),
             ),
             TextField(
-              controller: _titleController,
+              controller:  _titleController,
               decoration: InputDecoration(
                   hintText: "SAL | Create Api definition for ",
                   hintStyle: FontStyleText.text14W400Hint,
@@ -65,7 +80,7 @@ class AddNewTaskScreen extends StatelessWidget {
               ),
             ),
             TextField(
-              controller: _discriptionController,
+              controller:  _descriptionController,
               decoration: InputDecoration(
                 hintText: "Website UI design for...",
                 hintStyle: FontStyleText.text14W400Hint,
@@ -80,7 +95,7 @@ class AddNewTaskScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                isEdit == true ? _submit(context) : _submit(context);
+                _submit(context);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -91,7 +106,7 @@ class AddNewTaskScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  isEdit == true
+                  widget.isEdit == true
                       ? context.localization.save_task
                       : context.localization.create_task,
                   style: FontStyleText.text16W500White,
@@ -108,30 +123,52 @@ class AddNewTaskScreen extends StatelessWidget {
 
   _submit(BuildContext context) async {
     try {
-      if(isEdit){
+      if( widget.isEdit){
         await FirebaseConstant.updateCollection(
-            docId: userId ?? '',
+            docId:  widget.userId ?? '',
             collectionName: StringConstant.taskCollection,
             value: {
-              'title': _titleController.text,
-              'description': _discriptionController.text,
+              'title':  _titleController.text,
+              'description':  _descriptionController.text,
             });
+        FirebaseAnalytics.instance.logEvent(
+          name: "EditTask",
+          parameters: {
+            'userId': await firebaseConstant.userId,
+            'title':  _titleController.text,
+            'description':  _descriptionController.text,
+            'dateTime': DateTime.now(),
+          },
+        );
       }else{
         await FirebaseConstant.setCollection(
             collectionName: StringConstant.taskCollection,
             value: {
               'userId': await firebaseConstant.userId,
-              'title': _titleController.text,
-              'description': _discriptionController.text,
+              'title':  _titleController.text,
+              'description':  _descriptionController.text,
               'dateTime': DateTime.now(),
               'timeHistory': [],
               'status': 'todo',
+              'startTime':[],
+              'endTime':[],
+              'isPlay':false
             });
+        FirebaseAnalytics.instance.logEvent(
+          name: "CreateTask",
+          parameters: {
+            'userId': await firebaseConstant.userId,
+            'title':  _titleController.text,
+            'description':  _descriptionController.text,
+            'dateTime': DateTime.now(),
+            'timeHistory': [],
+            'status': 'todo',
+          },
+        );
       }
       _titleController.clear();
-      _discriptionController.clear();
-      context.read<TabBloc>().add(ChangeTabEvent(0));
-      //BlocProvider.of<TabBloc>(context).add(ChangeTabEvent(0));
+      _descriptionController.clear();
+      context.read<TabBloc>().add(ChangeTabEvent( widget.index ?? 0));
       Navigator.pop(context);
     } catch (e) {
       print(e.toString());

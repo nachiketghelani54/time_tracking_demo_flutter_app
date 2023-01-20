@@ -183,7 +183,10 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         AddNewTaskScreen(
-                                                            userId: state.taskList?[index].id, isEdit: true, index: 0),
+                                                           userId: state.taskList?[index].id,
+                                                            isEdit: true,
+                                                            title: state.taskList?[index].title,
+                                                            description: state.taskList?[index].description, index: 0),
                                                   ));
                                             },
                                             child: Row(

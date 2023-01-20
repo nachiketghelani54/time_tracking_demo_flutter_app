@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +18,10 @@ import 'localization/localization_delegate.dart';
 import 'localization/localization_helper.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await initSharedPreferences();
+  await Firebase.initializeApp();
   NotificationService().initNotification();
   runApp(const MyApp());
 }
@@ -83,22 +82,10 @@ class MyApp extends StatelessWidget {
       ],
       locale: localizationsState.locale,
       supportedLocales: L10n.all,
-      // supportedLocales: const [
-      //   Locale('en', ''),
-      //   Locale('de', ''),
-      // ],
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseConstant.analytics),
+      ],
       home: const BottomNavBarScreen(),
-      // routes: {
-      //   SiteSelectionPage.routeName: (context) => const SiteSelectionPage(),
-      //   ExpenseTab.routeName: (context) => const ExpenseTab(),
-      //   YearlyReportPage.routeName: (context) =>
-      //   const YearlyReportPage(index: 'Monthly'),
-      //   SignupPage.routeName: (context) => const SignupPage(),
-      //   LoginPage.routeName: (context) => const LoginPage(),
-      //   MyHomePage.routeName: (context) => const MyHomePage(),
-      //   WebHomePage.routeName: (context) => const WebHomePage(),
-      //   CreateSiteScreen.routeName: (context) => const CreateSiteScreen()
-      // },
     );
   }
 }

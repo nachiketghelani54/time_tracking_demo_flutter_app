@@ -100,11 +100,10 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         AddNewTaskScreen(
-                                                            userId: state
-                                                                .taskList?[
-                                                                    index]
-                                                                .id,
+                                                            userId: state.taskList?[index].id,
                                                             isEdit: true,
+                                                            title: state.taskList?[index].title,
+                                                            description: state.taskList?[index].description,
                                                             index: 1),
                                                   ));
                                             },

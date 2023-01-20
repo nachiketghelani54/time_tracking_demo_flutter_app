@@ -18,6 +18,9 @@ import '../../bottom_nav/bottom_nav_bar.dart';
 import '../home_screen.dart';
 
 class ToDoScreen extends StatefulWidget {
+  int index;
+  ToDoScreen({required this.index});
+
   @override
   State<ToDoScreen> createState() => _ToDoScreenState();
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
@@ -141,15 +142,15 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               'title': _titleController.text,
               'description': _descriptionController.text,
             });
-        FirebaseAnalytics.instance.logEvent(
-          name: "EditTask",
-          parameters: {
-            'userId': await firebaseConstant.userId,
-            'title': _titleController.text,
-            'description': _descriptionController.text,
-            'dateTime': DateTime.now(),
-          },
-        );
+        // FirebaseAnalytics.instance.logEvent(
+        //   name: "EditTask",
+        //   parameters: {
+        //     'userId': await firebaseConstant.userId,
+        //     'title':  _titleController.text,
+        //     'description':  _descriptionController.text,
+        //     'dateTime': DateFormat("d MMM yyyy").format(DateTime.now()),
+        //   },
+        // );
       } else {
         await FirebaseConstant.setCollection(
             collectionName: StringConstant.taskCollection,
@@ -164,17 +165,17 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               'endTime': [],
               'isPlay': false
             });
-        FirebaseAnalytics.instance.logEvent(
-          name: "CreateTask",
-          parameters: {
-            'userId': await firebaseConstant.userId,
-            'title': _titleController.text,
-            'description': _descriptionController.text,
-            'dateTime': DateTime.now(),
-            'timeHistory': [],
-            'status': 'todo',
-          },
-        );
+        // FirebaseAnalytics.instance.logEvent(
+        //   name: "CreateTask",
+        //   parameters: {
+        //     'userId': await firebaseConstant.userId,
+        //     'title':  _titleController.text,
+        //     'description':  _descriptionController.text,
+        //     'dateTime': DateFormat("d MMM yyyy").format(DateTime.now()),
+        //     'timeHistory': [],
+        //     'status': 'todo',
+        //   },
+        // );
       }
       _titleController.clear();
       _descriptionController.clear();

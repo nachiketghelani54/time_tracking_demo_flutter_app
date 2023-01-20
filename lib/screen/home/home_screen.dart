@@ -8,6 +8,7 @@ import 'package:time_tracking_demo/screen/bottom_nav/bloc/bottom_nav_bloc.dart';
 import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 import 'package:time_tracking_demo/screen/home/tabs/done.dart';
 import 'package:time_tracking_demo/screen/home/tabs/in_progress.dart';
+import 'package:time_tracking_demo/screen/home/tabs/task_screen.dart';
 import 'package:time_tracking_demo/screen/home/tabs/to_do.dart';
 
 import '../../constants/text_style.dart';
@@ -196,11 +197,7 @@ class _HomeScreenState extends State<HomeScreen>
           Expanded(
             child: TabBarView(
               controller: tabController,
-              children: [
-                ToDoScreen(),
-                const InProgressScreen(),
-                const DoneScreen()
-              ],
+              children: [TaskScreen(index: 0),TaskScreen(index: 1),TaskScreen(index: 2)]
             ),
           )
         ],

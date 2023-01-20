@@ -23,3 +23,13 @@ String getTask(int task) {
     return StringConstant.todoString;
   }
 }
+
+String getTaskString(int task) {
+  if (task == 1) {
+    return StringConstant.inProgressDataString;
+  } else if (task == 2) {
+    return StringConstant.doneDataString;
+  } else {
+    return StringConstant.todoDataString;
+  }
+}

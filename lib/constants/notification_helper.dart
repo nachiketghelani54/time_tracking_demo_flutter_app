@@ -38,7 +38,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> showNotification(int id, String title, String body) async {
+  Future<void> showNotificationZonedSchedule(int id, String title, String body) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
@@ -65,6 +65,27 @@ class NotificationService {
           UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle:
           true, // To show notification even when the app is closed
+    );
+  }
+  Future<void> showNotification(int id, String title, String body) async {
+    await flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      const NotificationDetails(
+        // Android details
+        android: AndroidNotificationDetails('Time_sheet', 'Time tracing',
+            channelDescription: "Time tracing app",
+            importance: Importance.max,
+            priority: Priority.max,
+            fullScreenIntent: true),
+        // iOS details
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
+      ),
     );
   }
 }

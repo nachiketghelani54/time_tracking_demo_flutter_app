@@ -1,5 +1,5 @@
 import 'package:day_night_switcher/day_night_switcher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
@@ -16,21 +16,28 @@ import '../../theme/theme.dart';
 import '../../theme/widget_theme/colors_and_text_style.dart';
 import '../language_selection_screen.dart';
 
+late TabController tabController;
+
 class HomeScreen extends StatefulWidget {
+  var index;
+
+   HomeScreen(this.index, {super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
-
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    tabController.animateTo(widget.index);
     tabController.addListener(() {
-      print(tabController.index);
+      if (kDebugMode) {
+        print(tabController.index);
+      }
       context.read<TabBloc>().add(ChangeTabEvent(tabController.index));
     });
   }
@@ -51,14 +58,14 @@ class _HomeScreenState extends State<HomeScreen>
                       color: TaskColors.primaryColor,
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                FlutterLogo(
+                                const FlutterLogo(
                                   size: 80,
                                 ),
                                 Text(
@@ -68,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen>
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           )
                         ],
@@ -98,22 +105,22 @@ class _HomeScreenState extends State<HomeScreen>
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: TaskColors.dividerColor,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 8),
                       child: Row(
-                        children: [LanguageSelection()],
+                        children: const [LanguageSelection()],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: TaskColors.dividerColor,
                     ),
                     InkWell(
                       onTap: () {
-                        context.read<BottomNavBloc>().add(ChangeTab(0));
+                        context.read<BottomNavBloc>().add(const ChangeTab(0));
                         Navigator.pop(context);
                       },
                       child: Padding(
@@ -121,12 +128,12 @@ class _HomeScreenState extends State<HomeScreen>
                         child: Text(context.localization.home),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: TaskColors.dividerColor,
                     ),
                     InkWell(
                       onTap: () {
-                        context.read<BottomNavBloc>().add(ChangeTab(1));
+                        context.read<BottomNavBloc>().add(const ChangeTab(1));
                         Navigator.pop(context);
                       },
                       child: Padding(
@@ -134,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen>
                         child: Text(context.localization.history),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: TaskColors.dividerColor,
                     ),
                   ],
@@ -174,22 +181,26 @@ class _HomeScreenState extends State<HomeScreen>
             controller: tabController,
             unselectedLabelColor: TaskColors.hintColor,
             labelColor: TaskColors.primaryColor,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: TaskColors.primaryColor),
-            unselectedLabelStyle: TextStyle(
+            unselectedLabelStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: TaskColors.hintColor),
             // padding: EdgeInsets.zero,
             // indicatorPadding: EdgeInsets.zero,
-            labelPadding: EdgeInsets.all(10),
+            labelPadding: const EdgeInsets.all(10),
           ),
           Expanded(
             child: TabBarView(
               controller: tabController,
-              children: [ToDoScreen(), const InProgressScreen(), const DoneScreen()],
+              children: [
+                ToDoScreen(),
+                const InProgressScreen(),
+                const DoneScreen()
+              ],
             ),
           )
         ],

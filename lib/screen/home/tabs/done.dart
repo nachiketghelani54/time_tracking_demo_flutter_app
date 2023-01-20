@@ -4,8 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 
 import '../../../constants/color_constant.dart';
+import '../../../constants/firebase_constant.dart';
+import '../../../constants/string_constant.dart';
 import '../../../constants/text_style.dart';
 import '../../add_new_task/add_new_task_screen.dart';
+import '../../bottom_nav/bottom_nav_bar.dart';
+import '../home_screen.dart';
 import 'bloc/tab_bloc.dart';
 
 class DoneScreen extends StatefulWidget {
@@ -73,7 +77,7 @@ class _DoneScreenState extends State<DoneScreen> {
                                       ListTile(
                                         title: Text(
                                           state.taskList?[index].title ?? "",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: TaskColors.lightBlackColor,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
@@ -81,7 +85,7 @@ class _DoneScreenState extends State<DoneScreen> {
                                         subtitle: Text(
                                           state.taskList?[index].description ??
                                               "",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: TaskColors.hintColor,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500),
@@ -100,36 +104,52 @@ class _DoneScreenState extends State<DoneScreen> {
                                               PopupMenuItem(
                                                 child: InkWell(
                                                   onTap: () {
-                                                    Navigator.pop(context);
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               AddNewTaskScreen(
-                                                                  userId: state.taskList?[index].id,
+                                                                  userId: state
+                                                                      .taskList?[
+                                                                          index]
+                                                                      .id,
                                                                   isEdit: true,
-                                                                  title: state.taskList?[index].title,
-                                                                  description: state.taskList?[index].description,
-                                                                  index: 2),
+                                                                  title: state
+                                                                      .taskList?[
+                                                                          index]
+                                                                      .title,
+                                                                  description: state
+                                                                      .taskList?[
+                                                                          index]
+                                                                      .description,
+                                                                  index: 0),
                                                         ));
                                                   },
-                                                  child: Row(
-                                                    children: [
-                                                      Image.asset(
-                                                          "assets/images/edit.png"),
-                                                      const SizedBox(
-                                                        width: 5,
+                                                  child: SizedBox(
+                                                    width: 130,
+                                                    height: 40,
+                                                    child: Center(
+                                                      child: Row(
+                                                        children: [
+                                                          Image.asset(
+                                                              "assets/images/edit.png"),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            context.localization
+                                                                .edit,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Text(
-                                                        context
-                                                            .localization.edit,
-                                                        style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -145,27 +165,35 @@ class _DoneScreenState extends State<DoneScreen> {
                                                                       false),
                                                         ));
                                                   },
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Image.asset(
-                                                        "assets/images/add.png",
+                                                  child: SizedBox(
+                                                    width: 130,
+                                                    height: 40,
+                                                    child: Center(
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Image.asset(
+                                                            "assets/images/add.png",
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                              context
+                                                                  .localization
+                                                                  .create,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              )),
+                                                        ],
                                                       ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Text(
-                                                          context.localization
-                                                              .create,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          )),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                                 onTap: () {},
@@ -183,61 +211,138 @@ class _DoneScreenState extends State<DoneScreen> {
                                                     color: Theme.of(context)
                                                         .appBarTheme
                                                         .backgroundColor,
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset(
-                                                            "assets/images/move.png"),
-                                                        const SizedBox(
-                                                          width: 5,
+                                                    child: SizedBox(
+                                                      width: 130,
+                                                      height: 40,
+                                                      child: Center(
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                                "assets/images/move.png"),
+                                                            const SizedBox(
+                                                              width: 5,
+                                                            ),
+                                                            Text(
+                                                              context
+                                                                  .localization
+                                                                  .move,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Text(
-                                                          context.localization
-                                                              .move,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                      ),
                                                     ),
                                                     itemBuilder: (ctx) => [
                                                       PopupMenuItem(
-                                                        child: Text(
-                                                          context.localization
-                                                              .to_do,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w500,
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            await FirebaseConstant
+                                                                .updateCollection(
+                                                                    docId: state
+                                                                            .taskList?[index]
+                                                                            .id ??
+                                                                        "",
+                                                                    collectionName: StringConstant.taskCollection,
+                                                                    value: {
+                                                                  "status":
+                                                                      StringConstant
+                                                                          .todoString
+                                                                }).then(
+                                                                (value) {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pushAndRemoveUntil(
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                               BottomNavBarScreen(0)),
+                                                                      (Route<dynamic>
+                                                                              route) =>
+                                                                          false);
+                                                            });
+                                                          },
+                                                          child: SizedBox(
+                                                            width: 130,
+                                                            height: 40,
+                                                            child: Center(
+                                                              child: Text(
+                                                                context
+                                                                    .localization
+                                                                    .to_do,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                       PopupMenuItem(
-                                                        child: Text(
-                                                            context.localization
-                                                                .in_progress,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            )),
-                                                        onTap: () {},
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            await FirebaseConstant
+                                                                .updateCollection(
+                                                                    docId: state
+                                                                            .taskList?[index]
+                                                                            .id ??
+                                                                        "",
+                                                                    collectionName: StringConstant.taskCollection,
+                                                                    value: {
+                                                                  "status":
+                                                                      StringConstant
+                                                                          .inProgressString
+                                                                }).then(
+                                                                (value) {
+                                                                  Navigator.of(
+                                                                      context)
+                                                                      .pushAndRemoveUntil(
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                           BottomNavBarScreen(1)),
+                                                                          (Route<dynamic>
+                                                                      route) =>
+                                                                      false);
+
+                                                            });
+                                                          },
+                                                          child: SizedBox(
+                                                            width: 130,
+                                                            height: 40,
+                                                            child: Center(
+                                                              child: Text(
+                                                                  context
+                                                                      .localization
+                                                                      .in_progress,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
                                                 ),
-                                                onTap: () {},
                                               ),
                                             ],
                                           ),
                                         ),
                                       ),
-                                      Divider(
+                                      const Divider(
                                           color: TaskColors.hintColor,
                                           endIndent: 8,
                                           indent: 8),

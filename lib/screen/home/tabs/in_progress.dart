@@ -4,8 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 
 import '../../../constants/color_constant.dart';
+import '../../../constants/firebase_constant.dart';
+import '../../../constants/string_constant.dart';
 import '../../../constants/text_style.dart';
 import '../../add_new_task/add_new_task_screen.dart';
+import '../../bottom_nav/bottom_nav_bar.dart';
+import '../home_screen.dart';
 import 'bloc/tab_bloc.dart';
 
 class InProgressScreen extends StatefulWidget {
@@ -68,14 +72,14 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                 ListTile(
                                   title: Text(
                                     state.taskList?[index].title ?? "",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: TaskColors.lightBlackColor,
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   subtitle: Text(
                                     state.taskList?[index].description ?? "",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: TaskColors.hintColor,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),
@@ -84,7 +88,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                     decoration: const BoxDecoration(),
                                     child: PopupMenuButton(
                                       constraints:
-                                          const BoxConstraints(maxWidth: 130),
+                                      const BoxConstraints(maxWidth: 130),
                                       offset: const Offset(110, 0),
                                       color: Theme.of(context)
                                           .appBarTheme
@@ -94,34 +98,35 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                         PopupMenuItem(
                                           child: InkWell(
                                             onTap: () {
-                                              Navigator.pop(context);
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         AddNewTaskScreen(
-                                                            userId: state.taskList?[index].id,
-                                                            isEdit: true,
-                                                            title: state.taskList?[index].title,
-                                                            description: state.taskList?[index].description,
-                                                            index: 1),
+                                                            userId: state.taskList?[index].id, isEdit: true, index: 0),
                                                   ));
                                             },
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                    "assets/images/edit.png"),
-                                                const SizedBox(
-                                                  width: 5,
+                                            child: SizedBox(
+                                              width: 130,
+                                              height: 40,
+                                              child: Center(
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(
+                                                        "assets/images/edit.png"),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      context.localization.edit,
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  context.localization.edit,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -136,24 +141,30 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                                             isEdit: false),
                                                   ));
                                             },
-                                            child: Row(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                Image.asset(
-                                                  "assets/images/add.png",
+                                            child: SizedBox(
+                                              width: 130,
+                                              height: 40,
+                                              child: Center(
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Image.asset(
+                                                      "assets/images/add.png",
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                        context.localization.create,
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                          FontWeight.w500,
+                                                        )),
+                                                  ],
                                                 ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                    context.localization.create,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                    )),
-                                              ],
+                                              ),
                                             ),
                                           ),
                                           onTap: () {},
@@ -168,55 +179,113 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                               color: Theme.of(context)
                                                   .appBarTheme
                                                   .backgroundColor,
-                                              child: Row(
-                                                children: [
-                                                  Image.asset(
-                                                      "assets/images/move.png"),
-                                                  const SizedBox(
-                                                    width: 5,
+                                              child: SizedBox(
+                                                width: 130,
+                                                height: 40,
+                                                child: Center(
+                                                  child: Row(
+                                                    children: [
+                                                      Image.asset(
+                                                          "assets/images/move.png"),
+                                                      const SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Text(
+                                                        context.localization.move,
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                          FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    context.localization.move,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ],
+                                                ),
                                               ),
                                               itemBuilder: (ctx) => [
                                                 PopupMenuItem(
-                                                  child: Text(
-                                                    context.localization.to_do,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                      FontWeight.w500,
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await FirebaseConstant.updateCollection(
+                                                          docId: state.taskList?[index].id ?? "",
+                                                          collectionName: StringConstant.taskCollection,
+                                                          value: {
+                                                            "status" :StringConstant.todoString
+                                                          }).then((value) {
+                                                        Navigator.of(
+                                                            context)
+                                                            .pushAndRemoveUntil(
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                 BottomNavBarScreen(0)),
+                                                                (Route<dynamic>
+                                                            route) =>
+                                                            false);
+                                                      });
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 130,
+                                                      height: 40,
+                                                      child: Center(
+                                                        child: Text(
+                                                          context.localization
+                                                              .to_do,
+                                                          style: const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
+
                                                 ),
                                                 PopupMenuItem(
-                                                  child: Text(
-                                                      context.localization
-                                                          .done,
-                                                      style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                        FontWeight.w500,
-                                                      )),
-                                                  onTap: () {},
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await FirebaseConstant.updateCollection(
+                                                          docId: state.taskList?[index].id ?? "",
+                                                          collectionName: StringConstant.taskCollection,
+                                                          value: {
+                                                            "status" :StringConstant.doneString
+                                                          }).then((value){
+                                                        Navigator.of(
+                                                            context)
+                                                            .pushAndRemoveUntil(
+                                                            MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                 BottomNavBarScreen(2)),
+                                                                (Route<dynamic>
+                                                            route) =>
+                                                            false)
+                                                        ;
+                                                      });
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 130,
+                                                      height: 40,
+                                                      child: Center(
+                                                        child: Text(
+                                                            context.localization.done,
+                                                            style: const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                              FontWeight.w500,
+                                                            )),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          onTap: () {},
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                     color: TaskColors.hintColor,
                                     endIndent: 8,
                                     indent: 8),
@@ -266,7 +335,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                           ),
                                         ],
                                       ),
-                                      Expanded(child: SizedBox()),
+                                      const Expanded(child: SizedBox()),
                                       Container(
                                         height: 35,
                                         width: 80,
@@ -301,9 +370,9 @@ class _InProgressScreenState extends State<InProgressScreen> {
                 builder: (context) => AddNewTaskScreen(isEdit: false),
               ));
         },
-        child: Icon(CupertinoIcons.add),
         backgroundColor: TaskColors.primaryColor,
         elevation: 0,
+        child: const Icon(CupertinoIcons.add),
       ),
     );
   }

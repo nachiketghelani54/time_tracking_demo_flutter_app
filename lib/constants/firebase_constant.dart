@@ -22,7 +22,7 @@ class FirebaseConstant {
         .collection(collectionName ?? '').add(value);
   }
 
-  static updateCollection(
+  static Future updateCollection(
       {required String collectionName,required Map<String, dynamic> value,required String docId}) {
     return _fireStoreData
         .collection(collectionName ?? '').doc(docId).update(value);

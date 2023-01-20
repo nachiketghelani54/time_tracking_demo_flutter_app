@@ -18,6 +18,7 @@ import 'localization/localization_delegate.dart';
 import 'localization/localization_helper.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSharedPreferences();
@@ -50,10 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BottomNavBloc()..add(const ChangeTab(0)),
         ),
-        BlocProvider(
-          create: (context) =>
-         TabBloc()..add(FetchTabEvent(0))),
-
+        BlocProvider(create: (context) => TabBloc()..add(FetchTabEvent(0))),
       ],
       child: BlocBuilder<LocalizationsBloc, LocalizationsState>(
         builder: (context, localizationsState) {
@@ -85,7 +83,7 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseConstant.analytics),
       ],
-      home: const BottomNavBarScreen(),
+      home: BottomNavBarScreen(0),
     );
   }
 }

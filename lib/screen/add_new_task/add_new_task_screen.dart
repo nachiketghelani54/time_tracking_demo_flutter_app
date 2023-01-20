@@ -15,19 +15,29 @@ class AddNewTaskScreen extends StatefulWidget {
   String? description;
   int? index;
   bool isEdit;
-  AddNewTaskScreen({Key? key,required this.isEdit,this.userId,this.title,this.description,this.index}) : super(key: key);
+
+  AddNewTaskScreen(
+      {Key? key,
+      required this.isEdit,
+      this.userId,
+      this.title,
+      this.description,
+      this.index})
+      : super(key: key);
 
   @override
   State<AddNewTaskScreen> createState() => _AddNewTaskScreenState();
 }
 
 class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
-   TextEditingController _titleController = TextEditingController();
-   TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+
   @override
   void initState() {
-     _titleController = TextEditingController(text: widget.title ??'');
-     _descriptionController = TextEditingController(text:  widget.description ?? '');
+    _titleController = TextEditingController(text: widget.title ?? '');
+    _descriptionController =
+        TextEditingController(text: widget.description ?? '');
     super.initState();
   }
 
@@ -62,7 +72,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               ),
             ),
             TextField(
-              controller:  _titleController,
+              controller: _titleController,
               decoration: InputDecoration(
                   hintText: "SAL | Create Api definition for ",
                   hintStyle: FontStyleText.text14W400Hint,
@@ -80,7 +90,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               ),
             ),
             TextField(
-              controller:  _descriptionController,
+              controller: _descriptionController,
               decoration: InputDecoration(
                 hintText: "Website UI design for...",
                 hintStyle: FontStyleText.text14W400Hint,
@@ -123,43 +133,43 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
 
   _submit(BuildContext context) async {
     try {
-      if( widget.isEdit){
+      if (widget.isEdit) {
         await FirebaseConstant.updateCollection(
-            docId:  widget.userId ?? '',
+            docId: widget.userId ?? '',
             collectionName: StringConstant.taskCollection,
             value: {
-              'title':  _titleController.text,
-              'description':  _descriptionController.text,
+              'title': _titleController.text,
+              'description': _descriptionController.text,
             });
         FirebaseAnalytics.instance.logEvent(
           name: "EditTask",
           parameters: {
             'userId': await firebaseConstant.userId,
-            'title':  _titleController.text,
-            'description':  _descriptionController.text,
+            'title': _titleController.text,
+            'description': _descriptionController.text,
             'dateTime': DateTime.now(),
           },
         );
-      }else{
+      } else {
         await FirebaseConstant.setCollection(
             collectionName: StringConstant.taskCollection,
             value: {
               'userId': await firebaseConstant.userId,
-              'title':  _titleController.text,
-              'description':  _descriptionController.text,
+              'title': _titleController.text,
+              'description': _descriptionController.text,
               'dateTime': DateTime.now(),
               'timeHistory': [],
               'status': 'todo',
-              'startTime':[],
-              'endTime':[],
-              'isPlay':false
+              'startTime': [],
+              'endTime': [],
+              'isPlay': false
             });
         FirebaseAnalytics.instance.logEvent(
           name: "CreateTask",
           parameters: {
             'userId': await firebaseConstant.userId,
-            'title':  _titleController.text,
-            'description':  _descriptionController.text,
+            'title': _titleController.text,
+            'description': _descriptionController.text,
             'dateTime': DateTime.now(),
             'timeHistory': [],
             'status': 'todo',
@@ -168,7 +178,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
       }
       _titleController.clear();
       _descriptionController.clear();
-      context.read<TabBloc>().add(ChangeTabEvent( widget.index ?? 0));
+      context.read<TabBloc>().add(ChangeTabEvent(widget.index ?? 0));
       Navigator.pop(context);
     } catch (e) {
       print(e.toString());

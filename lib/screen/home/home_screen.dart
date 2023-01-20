@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen>
           Expanded(
             child: TabBarView(
               controller: tabController,
-              children: [ToDoScreen(), InProgressScreen(), DoneScreen()],
+              children: [ToDoScreen(), const InProgressScreen(), const DoneScreen()],
             ),
           )
         ],

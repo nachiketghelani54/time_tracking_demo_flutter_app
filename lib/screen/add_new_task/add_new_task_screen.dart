@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
+import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 
 import '../../constants/color_constant.dart';
 
 class AddNewTaskScreen extends StatelessWidget {
-  AddNewTaskScreen({Key? key, this.isEdit, this.editable}) : super(key: key);
-  bool? isEdit = false;
-  var editable;
+  AddNewTaskScreen({Key? key,required this.isEdit,this.userId,this.index}) : super(key: key);
+  String? userId;
+  int? index;
+  bool isEdit;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _discriptionController = TextEditingController();
 
@@ -105,18 +108,30 @@ class AddNewTaskScreen extends StatelessWidget {
 
   _submit(BuildContext context) async {
     try {
-      await FirebaseConstant.setCollection(
-          collectionName: StringConstant.taskCollection,
-          value: {
-            'userId': await firebaseConstant.userId,
-            'title': _titleController.text,
-            'description': _discriptionController.text,
-            'dateTime': DateTime.now(),
-            'timeHistory': [],
-            'status': 'todo',
-          });
+      if(isEdit){
+        await FirebaseConstant.updateCollection(
+            docId: userId ?? '',
+            collectionName: StringConstant.taskCollection,
+            value: {
+              'title': _titleController.text,
+              'description': _discriptionController.text,
+            });
+      }else{
+        await FirebaseConstant.setCollection(
+            collectionName: StringConstant.taskCollection,
+            value: {
+              'userId': await firebaseConstant.userId,
+              'title': _titleController.text,
+              'description': _discriptionController.text,
+              'dateTime': DateTime.now(),
+              'timeHistory': [],
+              'status': 'todo',
+            });
+      }
       _titleController.clear();
       _discriptionController.clear();
+      context.read<TabBloc>().add(ChangeTabEvent(0));
+      //BlocProvider.of<TabBloc>(context).add(ChangeTabEvent(0));
       Navigator.pop(context);
     } catch (e) {
       print(e.toString());

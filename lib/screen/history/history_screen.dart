@@ -54,8 +54,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          print(state.listOfCsvList?.length);
-          return Column(
+          return  state.taskList?.isEmpty ?? true?
+          const Center(child: Text('No History found'),) :
+          Column(
             children: [
               const SizedBox(
                 height: 12,
@@ -99,9 +100,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       ]),
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       ListTile(
                                         title: Text(
@@ -139,10 +140,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   child: Text(
                                                     DateFormat("d MMM yyyy")
                                                         .format(state
-                                                                .taskList?[
-                                                                    index]
-                                                                .dateTime ??
-                                                            DateTime.now()),
+                                                        .taskList?[
+                                                    index]
+                                                        .dateTime ??
+                                                        DateTime.now()),
                                                     style: FontStyleText
                                                         .text12W400LightBlack,
                                                   ),
@@ -157,11 +158,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 ),
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     DateFormat("hh:mm").format(
                                                         state.taskList?[index]
-                                                                .dateTime ??
+                                                            .dateTime ??
                                                             DateTime.now()),
                                                     style: FontStyleText
                                                         .text12W400LightBlack,
@@ -176,7 +177,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                               ),
                                               child: Text(
                                                 context.localization.completed,
@@ -195,7 +196,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   },
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   exportCSV.myCSV(header, state.listOfCsvList!);
                 },

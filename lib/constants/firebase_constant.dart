@@ -20,6 +20,12 @@ class FirebaseConstant {
         .collection(collectionName ?? '').add(value);
   }
 
+  static updateCollection(
+      {required String collectionName,required Map<String, dynamic> value,required String docId}) {
+    return _fireStoreData
+        .collection(collectionName ?? '').doc(docId).update(value);
+  }
+
   static fetchCollection({String? collectionName, String? docId}) {
     return _fireStoreData
         .collection(collectionName ?? '')
@@ -39,7 +45,7 @@ class FirebaseConstant {
       QuerySnapshot<Map<String, dynamic>> task = await _fireStoreData
           .collection(StringConstant.taskCollection)
           .get();
-      List<TaskModel> task1 = task.docs.toList().map((e) => TaskModel.fromMap(e.id ,e.data())).toList();
+      List<TaskModel> task1 = task.docs.toList().map((e) => TaskModel.fromMap(e.id ,e.data())).where((element) => element.status == StringConstant.doneString).toList();
       return task1;
     } catch (e) {
       return [];
@@ -71,6 +77,12 @@ class FirebaseConstant {
     }
   }
 
+  /// Get task from [Collection]
+  static editTask(userId,Map<String,dynamic> value) async {
+    return  _fireStoreData
+          .collection(StringConstant.taskCollection).doc(userId).update(value);
+  }
+
   Future<String> get userId async {
     try {
       UserCredential users = await _auth.signInAnonymously();
@@ -92,13 +104,13 @@ class FirebaseConstant {
         .asBroadcastStream();
   }
 
-  static updateCollection(
-      {String? collectionName, String? docId, Map<String, dynamic>? value}) {
-    return _fireStoreData
-        .collection(collectionName ?? '')
-        .doc(docId ?? '')
-        .update(value ?? {});
-  }
+  // static updateCollection(
+  //     {String? collectionName, String? docId, Map<String, dynamic>? value}) {
+  //   return _fireStoreData
+  //       .collection(collectionName ?? '')
+  //       .doc(docId ?? '')
+  //       .update(value ?? {});
+  // }
 
   static fetchWhereSnapShot({String? collectionName, List<dynamic>? docId}) {
     return _fireStoreData

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:to_csv/to_csv.dart' as exportCSV;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +18,6 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   List<String> header = [];
-  List<List<String>> listOfLists = [];
 
   @override
   void initState() {
@@ -50,9 +49,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
       body: BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) {
-          if(state is HistoryInitial ){
-            return const Center(child: CircularProgressIndicator(),);
+          if (state is HistoryInitial) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
+          print(state.listOfCsvList?.length);
           return Column(
             children: [
               const SizedBox(
@@ -97,14 +99,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       ]),
                                   child: Column(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       ListTile(
                                         title: Text(
                                           state.taskList?[index].title ?? '',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: TaskColors.lightBlackColor,
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold),
@@ -112,7 +114,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         subtitle: Text(
                                           state.taskList?[index].description ??
                                               '',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: TaskColors.hintColor,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500),
@@ -137,10 +139,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                   child: Text(
                                                     DateFormat("d MMM yyyy")
                                                         .format(state
-                                                        .taskList?[
-                                                    index]
-                                                        .dateTime ??
-                                                        DateTime.now()),
+                                                                .taskList?[
+                                                                    index]
+                                                                .dateTime ??
+                                                            DateTime.now()),
                                                     style: FontStyleText
                                                         .text12W400LightBlack,
                                                   ),
@@ -155,11 +157,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 ),
                                                 Padding(
                                                   padding:
-                                                  const EdgeInsets.all(8.0),
+                                                      const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     DateFormat("hh:mm").format(
                                                         state.taskList?[index]
-                                                            .dateTime ??
+                                                                .dateTime ??
                                                             DateTime.now()),
                                                     style: FontStyleText
                                                         .text12W400LightBlack,
@@ -167,14 +169,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 ),
                                               ],
                                             ),
-                                            Expanded(child: SizedBox()),
+                                            const Expanded(child: SizedBox()),
                                             Container(
                                               height: 35,
                                               width: 80,
                                               alignment: Alignment.center,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(10),
+                                                    BorderRadius.circular(10),
                                               ),
                                               child: Text(
                                                 context.localization.completed,
@@ -193,19 +195,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 45,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    context.localization.download,
-                    style: FontStyleText.text16W500White,
+              InkWell(
+                onTap: () {
+                  exportCSV.myCSV(header, state.listOfCsvList!);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      context.localization.download,
+                      style: FontStyleText.text16W500White,
+                    ),
                   ),
                 ),
               )

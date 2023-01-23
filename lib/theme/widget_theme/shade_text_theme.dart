@@ -38,8 +38,8 @@ TextTheme shadeTextThemeLight = TextTheme(
   bodyText1: TextStyle(
       fontSize: 16, color: Colors.white),
   bodyText2: const TextStyle(
-      color: ShadeColors.primaryTextColor,
-      fontSize: 17,
+      color: Colors.black,
+      fontSize: 16,
       fontWeight: FontWeight.w400),
 );
 
@@ -70,7 +70,7 @@ TextTheme shadeTextThemeDark = TextTheme(
   bodyText1: TextStyle(
       fontSize: 16, color: Colors.white),
   bodyText2: TextStyle(
-      color: ShadeColors.dBackgroundColor, fontSize: 17, fontWeight: FontWeight.w400),
+      color: Colors.white, fontSize: 17, fontWeight: FontWeight.w400),
 );
 
 TextTheme shadeTextThemeRed = TextTheme(
@@ -100,5 +100,5 @@ TextTheme shadeTextThemeRed = TextTheme(
   bodyText1: TextStyle(
        fontSize: 16, color: Colors.white),
   bodyText2: TextStyle(
-      color: ShadeColors.rBackgroundColor, fontSize: 17, fontWeight: FontWeight.w400),
+     color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400),
 );

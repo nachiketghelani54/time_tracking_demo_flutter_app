@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
       if (kDebugMode) {
         print(tabController.index);
       }
-      // context.read<TabBloc>().add(ClearDataEvent(tabController.index));
+      context.read<TabBloc>().add(ClearDataEvent(tabController.index));
       context.read<TabBloc>().add(ChangeTabEvent(tabController.index));
     });
     tabController.animateTo(widget.index);
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                             itemBuilder: (context) => [
                               PopupMenuItem(
-                                child: Text("Light",
+                                child: Text(context.localization.light,
                                     style: Theme.of(context).textTheme.subtitle2),
                                 onTap: () => context
                                     .read<ThemeBloc>()
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen>
                                               status: true)),
                               ),
                               PopupMenuItem(
-                                child: Text("Dark",
+                                child: Text(context.localization.dark,
                                     style: Theme.of(context).textTheme.subtitle2),
                                 onTap: () => context
                                     .read<ThemeBloc>()
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     theme: TaskTheme.darkTheme,
                                     status: true)),
                               ), PopupMenuItem(
-                                child: Text("Red",
+                                child: Text(context.localization.red,
                                     style: Theme.of(context).textTheme.subtitle2),
                                 onTap: () => context
                                     .read<ThemeBloc>()
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     theme: TaskTheme.redTheme,
                                     status: true)),
                               ), PopupMenuItem(
-                                child: Text("Green",
+                                child: Text(context.localization.green,
                                     style: Theme.of(context).textTheme.subtitle2),
                                 onTap: () => context
                                     .read<ThemeBloc>()
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen>
                                     theme: TaskTheme.greenTheme,
                                     status: true)),
                               ),PopupMenuItem(
-                                child: Text("Orange",
+                                child: Text(context.localization.orange,
                                     style: Theme.of(context).textTheme.subtitle2),
                                 onTap: () => context
                                     .read<ThemeBloc>()
@@ -147,21 +147,6 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                             ],
                           ),
-
-                          // Padding(
-                          //     padding:
-                          //         const EdgeInsets.symmetric(horizontal: 15),
-                          //     child: DayNightSwitcherIcon(
-                          //       moonColor: mainBackGroundColor,
-                          //       isDarkModeEnabled: state.status ?? false,
-                          //       onStateChanged: (val) {
-                          //         context.read<ThemeBloc>().add(ThemeChanged(
-                          //             theme: val
-                          //                 ? TaskTheme.darkTheme
-                          //                 : TaskTheme.lightTheme,
-                          //             status: val));
-                          //       },
-                          //     )),
                         ],
                       ),
                     ),
@@ -221,14 +206,6 @@ class _HomeScreenState extends State<HomeScreen>
         //   onTap: (){},
         //   child: Image.asset("assets/images/ic_menu.png",scale: 2.9),
         // ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                "assets/images/ic_notification.png",
-                scale: 2.9,
-              ))
-        ],
       ),
       body: Column(
         children: [

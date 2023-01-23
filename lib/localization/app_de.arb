@@ -23,7 +23,12 @@
      "move": "Umzug",
      "edit_task": "Aufgabe bearbeiten",
      "Save Task": "Aufgabe speichern",
-     "start": "Anfang"
+     "start": "Anfang",
+     "light":         "Hell",
+         "dark":            "Dunkel",
+         "red":"Rot",
+         "green":               "Grün",
+         "orange":              "Orange"
 
  }
 

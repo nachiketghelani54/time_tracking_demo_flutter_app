@@ -23,5 +23,10 @@
     "move": "Move",
     "edit_task": "Edit Task",
     "save_task": "Save Task",
-    "start": "Start"
+    "start": "Start",
+    "light":            "Light",
+    "dark":         "Dark",
+    "red":"Red",
+    "green":            "Green",
+    "orange":           "Orange"
 }

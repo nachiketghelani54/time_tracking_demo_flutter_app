@@ -80,13 +80,16 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   decoration: InputDecoration(
                       hintText: "SAL | Create Api definition for ",
                       hintStyle: FontStyleText.text14W400Hint,
+
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8))),
+
                   onChanged: (value) {
                     setState(() {
 
                     });
                   },
+                  style: Theme.of(context).textTheme.bodyText2,
                   validator: (value) {
                     if(value!.isEmpty){
                       return "Title must be required";
@@ -116,6 +119,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                       return "Description must be required";
                     }
                   },
+                  style: Theme.of(context).textTheme.bodyText2,
                   minLines: 4,
                   maxLines: null,
                 ),

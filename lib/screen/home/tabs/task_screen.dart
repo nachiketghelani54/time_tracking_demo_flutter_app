@@ -243,18 +243,19 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                               .inProgressString
                                                                     }).then(
                                                                     (value) {
+                                                                      Navigator.of(context).pushAndRemoveUntil(
+                                                                          MaterialPageRoute(
+                                                                              builder: (context) => BottomNavBarScreen(
+                                                                                  1)),
+                                                                              (Route<dynamic>
+                                                                          route) =>
+                                                                          false);
                                                                   context
                                                                       .read<
                                                                           TabBloc>()
                                                                       .add(ChangeTabEvent(
                                                                           1));
-                                                                  Navigator.of(context).pushAndRemoveUntil(
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) => BottomNavBarScreen(
-                                                                              1)),
-                                                                      (Route<dynamic>
-                                                                              route) =>
-                                                                          false);
+
                                                                 });
                                                               },
                                                               child: SizedBox(

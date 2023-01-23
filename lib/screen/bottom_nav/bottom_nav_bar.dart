@@ -21,7 +21,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   @override
   void initState() {
-    screenList.add(HomeScreen(widget.index ?? 0));
+    screenList.add(HomeScreen(widget.index));
     screenList.add(const HistoryScreen());
     super.initState();
   }

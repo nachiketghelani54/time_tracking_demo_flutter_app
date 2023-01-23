@@ -22,7 +22,7 @@ late TabController tabController;
 class HomeScreen extends StatefulWidget {
   var index;
 
-   HomeScreen(this.index, {super.key});
+  HomeScreen(this.index, {super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -41,8 +41,7 @@ class _HomeScreenState extends State<HomeScreen>
       context.read<TabBloc>().add(ClearDataEvent(tabController.index));
       context.read<TabBloc>().add(ChangeTabEvent(tabController.index));
     });
-    // tabController.animateTo(widget.index);
-
+    tabController.animateTo(widget.index);
   }
 
   @override
@@ -197,10 +196,11 @@ class _HomeScreenState extends State<HomeScreen>
             labelPadding: const EdgeInsets.all(10),
           ),
           Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [TaskScreen(index: 0),TaskScreen(index: 1),TaskScreen(index: 2)]
-            ),
+            child: TabBarView(controller: tabController, children: [
+              TaskScreen(index: 0),
+              TaskScreen(index: 1),
+              TaskScreen(index: 2)
+            ]),
           )
         ],
       ),

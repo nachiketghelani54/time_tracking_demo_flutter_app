@@ -408,7 +408,7 @@ class _DoneScreenState extends State<DoneScreen> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
-                                                color: TaskColors.primaryColor,
+                                                color: Theme.of(context).primaryColor,
                                               ),
                                               child: Text(
                                                 context.localization.stop,
@@ -437,7 +437,7 @@ class _DoneScreenState extends State<DoneScreen> {
               ));
         },
         child: Icon(CupertinoIcons.add),
-        backgroundColor: TaskColors.primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
       ),
     );

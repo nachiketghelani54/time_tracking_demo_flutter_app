@@ -35,15 +35,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        backgroundColor: TaskColors.primaryColor,
+        // backgroundColor: Theme.of(context).primaryColor,
+        // foregroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         title: Text(
           context.localization.history,
-          style: const TextStyle(
-              color: TaskColors.backgroundColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w500),
+          style:  TextStyle(
+              color: TaskColors.backgroundColor, fontSize: 16, fontWeight: FontWeight.w400),
         ),
         centerTitle: true,
         elevation: 0,
@@ -86,8 +87,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               child: Container(
                                   height: 150,
                                   width: double.infinity,
-                                  decoration: const BoxDecoration(
-                                      color: TaskColors.backgroundColor,
+                                  decoration:  BoxDecoration(
+                                      color: Theme.of(context).cardColor,
                                       borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(6),
                                           topRight: Radius.circular(6),
@@ -95,8 +96,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                           topLeft: Radius.circular(3)),
                                       boxShadow: [
                                         BoxShadow(
-                                            color: Colors.grey,
-                                            offset: Offset(4, 4),
+                                            color: Theme.of(context).shadowColor,
+                                            offset: Offset(0, 4),
                                             blurRadius: 10)
                                       ]),
                                   child: Column(
@@ -108,22 +109,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       ListTile(
                                         title: Text(
                                           state.taskList?[index].title ?? '',
-                                          style: const TextStyle(
-                                              color: TaskColors.lightBlackColor,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
+                                          style: Theme.of(context).textTheme.headline2,
                                         ),
                                         subtitle: Text(
                                           state.taskList?[index].description ??
                                               '',
-                                          style: const TextStyle(
-                                              color: TaskColors.hintColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500),
+                                          style:  Theme.of(context).textTheme.headline5,
                                         ),
                                       ),
                                       Divider(
-                                          color: TaskColors.hintColor,
+                                          color: Theme.of(context).hintColor,
                                           endIndent: 8,
                                           indent: 8),
                                       Padding(
@@ -138,15 +133,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.all(8.0),
-                                                  child: Text(
+                                                  child: Text( state
+                                                      .taskList![
+                                                  index]
+                                                      .endTime!.isEmpty ? "No Date Selected" :
                                                     DateFormat("d MMM yyyy")
                                                         .format(DateTime.parse(state
                                                         .taskList?[
                                                     index]
                                                         .endTime!.last ?? "") ??
                                                         DateTime.now()),
-                                                    style: FontStyleText
-                                                        .text12W400LightBlack,
+                                                    style: Theme.of(context).textTheme.headline6,
                                                   ),
                                                 ),
                                               ],
@@ -160,11 +157,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 Padding(
                                                   padding:
                                                   const EdgeInsets.all(8.0),
-                                                  child: Text(
+                                                  child: Text(state.taskList![index]
+                                                      .timeHistory!.isEmpty ? "No Time " :
                                                     state.taskList?[index]
                                                         .timeHistory?.last.split(".").first ?? "",
-                                                    style: FontStyleText
-                                                        .text12W400LightBlack,
+                                                    style: Theme.of(context).textTheme.headline6,
                                                   ),
                                                 ),
                                               ],
@@ -211,7 +208,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                     child: Text(
                       context.localization.download,
-                      style: FontStyleText.text16W500White,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                 ),

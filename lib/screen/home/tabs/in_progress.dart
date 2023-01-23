@@ -347,7 +347,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: TaskColors.primaryColor,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                         child: Text(
                                           context.localization.stop,
@@ -374,7 +374,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
                 builder: (context) => AddNewTaskScreen(isEdit: false),
               ));
         },
-        backgroundColor: TaskColors.primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
         child: const Icon(CupertinoIcons.add),
       ),

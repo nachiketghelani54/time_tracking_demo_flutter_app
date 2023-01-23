@@ -476,7 +476,7 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                   color:
-                                                      TaskColors.primaryColor,
+                                                  Theme.of(context).primaryColor,
                                                 ),
                                                 child: Text(
                                                   state.taskList![index]
@@ -512,7 +512,7 @@ class _ToDoScreenState extends State<ToDoScreen> with WidgetsBindingObserver {
               ));
         },
         child: Icon(CupertinoIcons.add),
-        backgroundColor: TaskColors.primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
       ),
     );

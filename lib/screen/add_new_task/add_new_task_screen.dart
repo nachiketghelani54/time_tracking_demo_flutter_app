@@ -33,7 +33,7 @@ class AddNewTaskScreen extends StatefulWidget {
 class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     _titleController = TextEditingController(text: widget.title ?? '');
@@ -46,7 +46,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: TaskColors.primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         title: Text(
           widget.isEdit == true
@@ -60,71 +60,94 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                context.localization.title_name,
-                style: FontStyleText.text14W400Hint,
-              ),
-            ),
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                  hintText: "SAL | Create Api definition for ",
-                  hintStyle: FontStyleText.text14W400Hint,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8))),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                context.localization.description,
-                style: FontStyleText.text14W400Hint,
-              ),
-            ),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(
-                hintText: "Website UI design for...",
-                hintStyle: FontStyleText.text14W400Hint,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              minLines: 4,
-              maxLines: null,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            GestureDetector(
-              onTap: () {
-                _submit(context);
-              },
-              child: Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(8),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    context.localization.title_name,
+                    style: FontStyleText.text14W400Hint,
+                  ),
                 ),
-                child: Text(
-                  widget.isEdit == true
-                      ? context.localization.save_task
-                      : context.localization.create_task,
-                  style: FontStyleText.text16W500White,
+                TextFormField(
+                  controller: _titleController,
+                  decoration: InputDecoration(
+                      hintText: "SAL | Create Api definition for ",
+                      hintStyle: FontStyleText.text14W400Hint,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  onChanged: (value) {
+                    setState(() {
+
+                    });
+                  },
+                  validator: (value) {
+                    if(value!.isEmpty){
+                      return "Title must be required";
+                    }
+                  },
                 ),
-              ),
-            )
-          ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    context.localization.description,
+                    style: FontStyleText.text14W400Hint,
+                  ),
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: InputDecoration(
+                    hintText: "Website UI design for...",
+                    hintStyle: FontStyleText.text14W400Hint,
+                    border:
+                        OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  validator: (value) {
+                    if(value!.isEmpty){
+                      return "Description must be required";
+                    }
+                  },
+                  minLines: 4,
+                  maxLines: null,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                GestureDetector(
+                  onTap: () {
+               if(_formKey.currentState!.validate()){
+                 _submit(context);
+               }
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      widget.isEdit == true
+                          ? context.localization.save_task
+                          : context.localization.create_task,
+                      style: TextStyle(
+                          color: TaskColors.backgroundColor, fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

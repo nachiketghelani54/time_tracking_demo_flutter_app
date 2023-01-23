@@ -12,5 +12,5 @@ AppBarTheme shadeAppBarThemeLight = const AppBarTheme(
 
 AppBarTheme shadeAppBarThemeDark = AppBarTheme(
   titleTextStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-  backgroundColor: darkColor,
+  backgroundColor: ShadeColors.dBackgroundColor,
 );

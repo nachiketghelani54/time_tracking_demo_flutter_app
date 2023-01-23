@@ -29,19 +29,19 @@ class HomePage extends StatelessWidget {
                   'Theme',
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: DayNightSwitcherIcon(
-                      moonColor: mainBackGroundColor,
-                      isDarkModeEnabled: state.status ?? false,
-                      onStateChanged: (val) {
-                        context.read<ThemeBloc>().add(ThemeChanged(
-                            theme: val
-                                ? TaskTheme.darkTheme
-                                : TaskTheme.lightTheme,
-                            status: val));
-                      },
-                    )),
+                // Padding(
+                //     padding: const EdgeInsets.symmetric(horizontal: 15),
+                //     child: DayNightSwitcherIcon(
+                //       moonColor: mainBackGroundColor,
+                //       isDarkModeEnabled: state.status ?? false,
+                //       onStateChanged: (val) {
+                //         context.read<ThemeBloc>().add(ThemeChanged(
+                //             theme: val
+                //                 ? TaskTheme.darkTheme
+                //                 : TaskTheme.lightTheme,
+                //             status: val));
+                //       },
+                //     )),
               ],
             ),
             LanguageSelection(),

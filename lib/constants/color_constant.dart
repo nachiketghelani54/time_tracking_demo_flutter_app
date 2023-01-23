@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class TaskColors {
   TaskColors._();
-  static const primaryColor = Color(0xff3B5DE7);
+  // static const primaryColor = Color(0xff3B5DE7);
   static const backgroundColor = Color(0xffFFFFFF);
   static const primaryTextColor = Color(0xff000000);
   static const cardColor = Color(0xff000000);

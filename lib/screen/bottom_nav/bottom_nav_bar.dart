@@ -52,7 +52,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                   )),
               // BottomNavigationBarItem(icon: Image.asset("assets/images/ic_setting_unselect.png",scale: 2.9),label: context.localization.setting,activeIcon: Image.asset("assets/images/ic_setting_select.png",scale: 2.9,)),
             ],
-            backgroundColor: TaskColors.primaryColor,
+            backgroundColor: Theme.of(context).primaryColor,
             elevation: 0,
             selectedItemColor: TaskColors.backgroundColor,
             unselectedItemColor: TaskColors.backgroundColor.withOpacity(0.5),

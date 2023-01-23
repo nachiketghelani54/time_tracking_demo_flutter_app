@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
       if (kDebugMode) {
         print(tabController.index);
       }
-      context.read<TabBloc>().add(ClearDataEvent(tabController.index));
+      // context.read<TabBloc>().add(ClearDataEvent(tabController.index));
       context.read<TabBloc>().add(ChangeTabEvent(tabController.index));
     });
     tabController.animateTo(widget.index);
@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen>
                   children: [
                     Container(
                       width: double.infinity,
-                      color: TaskColors.primaryColor,
+                      color: Theme.of(context).primaryColor,
                       child: Column(
                         children: [
                           const SizedBox(
@@ -87,28 +87,86 @@ class _HomeScreenState extends State<HomeScreen>
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         children: [
-                          Text(
-                            context.localization.theme,
+                          PopupMenuButton(
+                            offset: Offset(110, 0),
+                            color: Theme.of(context).appBarTheme.backgroundColor,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                context.localization.theme,
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ),
+                                const Icon(Icons.arrow_drop_down_outlined)
+                              ],
+                            ),
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                child: Text("Light",
+                                    style: Theme.of(context).textTheme.subtitle2),
+                                onTap: () => context
+                                    .read<ThemeBloc>()
+                                    .add(ThemeChanged(
+                                              theme: TaskTheme.lightTheme,
+                                              status: true)),
+                              ),
+                              PopupMenuItem(
+                                child: Text("Dark",
+                                    style: Theme.of(context).textTheme.subtitle2),
+                                onTap: () => context
+                                    .read<ThemeBloc>()
+                                    .add(ThemeChanged(
+                                    theme: TaskTheme.darkTheme,
+                                    status: true)),
+                              ), PopupMenuItem(
+                                child: Text("Red",
+                                    style: Theme.of(context).textTheme.subtitle2),
+                                onTap: () => context
+                                    .read<ThemeBloc>()
+                                    .add(ThemeChanged(
+                                    theme: TaskTheme.redTheme,
+                                    status: true)),
+                              ), PopupMenuItem(
+                                child: Text("Green",
+                                    style: Theme.of(context).textTheme.subtitle2),
+                                onTap: () => context
+                                    .read<ThemeBloc>()
+                                    .add(ThemeChanged(
+                                    theme: TaskTheme.greenTheme,
+                                    status: true)),
+                              ),PopupMenuItem(
+                                child: Text("Orange",
+                                    style: Theme.of(context).textTheme.subtitle2),
+                                onTap: () => context
+                                    .read<ThemeBloc>()
+                                    .add(ThemeChanged(
+                                    theme: TaskTheme.orangeTheme,
+                                    status: true)),
+                              ),
+                            ],
                           ),
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: DayNightSwitcherIcon(
-                                moonColor: mainBackGroundColor,
-                                isDarkModeEnabled: state.status ?? false,
-                                onStateChanged: (val) {
-                                  context.read<ThemeBloc>().add(ThemeChanged(
-                                      theme: val
-                                          ? TaskTheme.darkTheme
-                                          : TaskTheme.lightTheme,
-                                      status: val));
-                                },
-                              )),
+
+                          // Padding(
+                          //     padding:
+                          //         const EdgeInsets.symmetric(horizontal: 15),
+                          //     child: DayNightSwitcherIcon(
+                          //       moonColor: mainBackGroundColor,
+                          //       isDarkModeEnabled: state.status ?? false,
+                          //       onStateChanged: (val) {
+                          //         context.read<ThemeBloc>().add(ThemeChanged(
+                          //             theme: val
+                          //                 ? TaskTheme.darkTheme
+                          //                 : TaskTheme.lightTheme,
+                          //             status: val));
+                          //       },
+                          //     )),
                         ],
                       ),
                     ),
-                    const Divider(
-                      color: TaskColors.dividerColor,
+                     Divider(
+                      color: Theme.of(context).hintColor,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -117,8 +175,8 @@ class _HomeScreenState extends State<HomeScreen>
                         children: const [LanguageSelection()],
                       ),
                     ),
-                    const Divider(
-                      color: TaskColors.dividerColor,
+                     Divider(
+                      color: Theme.of(context).hintColor,
                     ),
                     InkWell(
                       onTap: () {
@@ -127,11 +185,11 @@ class _HomeScreenState extends State<HomeScreen>
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(context.localization.home),
+                        child: Text(context.localization.home,style: Theme.of(context).textTheme.headline2),
                       ),
                     ),
-                    const Divider(
-                      color: TaskColors.dividerColor,
+                     Divider(
+                      color: Theme.of(context).hintColor,
                     ),
                     InkWell(
                       onTap: () {
@@ -140,11 +198,11 @@ class _HomeScreenState extends State<HomeScreen>
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(context.localization.history),
+                        child: Text(context.localization.history,style: Theme.of(context).textTheme.headline2),
                       ),
                     ),
-                    const Divider(
-                      color: TaskColors.dividerColor,
+                     Divider(
+                      color: Theme.of(context).hintColor,
                     ),
                   ],
                 );
@@ -154,8 +212,10 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       appBar: AppBar(
-        backgroundColor: TaskColors.primaryColor,
-        foregroundColor: TaskColors.backgroundColor,
+        // backgroundColor: Theme.of(context).primaryColor,
+        // foregroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
         elevation: 0,
         // leading: InkWell(
         //   onTap: (){},
@@ -181,19 +241,21 @@ class _HomeScreenState extends State<HomeScreen>
               Text(context.localization.done),
             ],
             controller: tabController,
-            unselectedLabelColor: TaskColors.hintColor,
-            labelColor: TaskColors.primaryColor,
-            labelStyle: const TextStyle(
+            unselectedLabelColor: Theme.of(context).hintColor,
+            labelColor: Theme.of(context).indicatorColor,
+            labelStyle:  TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: TaskColors.primaryColor),
-            unselectedLabelStyle: const TextStyle(
+                color: Theme.of(context).primaryColor),
+            unselectedLabelStyle:  TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: TaskColors.hintColor),
+                color: Theme.of(context).hintColor),
             // padding: EdgeInsets.zero,
             // indicatorPadding: EdgeInsets.zero,
             labelPadding: const EdgeInsets.all(10),
+            indicatorColor: Theme.of(context).indicatorColor,
+
           ),
           Expanded(
             child: TabBarView(controller: tabController, children: [

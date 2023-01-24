@@ -15,7 +15,11 @@
     "completed": "Completed",
     "download": "Download",
     "title_name": "Title Name",
+    "titleHint": "SAL | Create Api definition for ",
+    "titleValidation": "Title must be required",
     "description": "Description",
+    "descriptionHint": "Website UI design for...",
+    "descriptionValidation": "Description must be required",
     "create_task": "Create Task",
     "create_new_task": "Create New Task",
     "edit": "Edit",
@@ -28,5 +32,6 @@
     "dark": "Dark",
     "red": "Red",
     "green": "Green",
-    "orange": "Orange"
+    "orange": "Orange",
+    "selectLanguage": "Select Language"
 }

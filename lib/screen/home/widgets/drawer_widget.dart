@@ -24,7 +24,7 @@ class DrawerPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ///localization
-                  _localization(context),
+                  _logo(context),
                   ///Theme
                   _theme(context),
                   _divider(context),
@@ -46,33 +46,6 @@ class DrawerPage extends StatelessWidget {
     );
   }
 
-  ///Localization
-  _localization(BuildContext context){
-    return Container(
-      width: double.infinity,
-      color: Theme.of(context).primaryColor,
-      child: Column(
-        children: [
-          SizeConstant.height20,
-          Padding(
-            padding: const EdgeInsets.all(SizeConstant.size8),
-            child: Row(
-              children: [
-                const FlutterLogo(
-                  size: SizeConstant.size80,
-                ),
-                Text(
-                  StringConstant.flutterString,
-                  style: FontStyleText.text22W500White,
-                )
-              ],
-            ),
-          ),
-          SizeConstant.height10
-        ],
-      ),
-    );
-  }
   ///Theme
   _theme(BuildContext context){
     return Padding(
@@ -91,7 +64,7 @@ class DrawerPage extends StatelessWidget {
                   context.localization.theme,
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
-                const Icon(Icons.arrow_drop_down_outlined)
+                Icon(Icons.arrow_drop_down_outlined,color: Theme.of(context).textTheme.subtitle2?.color,)
               ],
             ),
             itemBuilder: (context) => [
@@ -190,6 +163,34 @@ class DrawerPage extends StatelessWidget {
   _divider(BuildContext context) {
     return Divider(
       color: Theme.of(context).hintColor,
+    );
+  }
+
+  ///Logo Title
+  _logo(BuildContext context){
+    return Container(
+      width: double.infinity,
+      color: Theme.of(context).primaryColor,
+      child: Column(
+        children: [
+          SizeConstant.height20,
+          Padding(
+            padding: const EdgeInsets.all(SizeConstant.size8),
+            child: Row(
+              children: [
+                const FlutterLogo(
+                  size: SizeConstant.size80,
+                ),
+                Text(
+                  StringConstant.flutterString,
+                  style: FontStyleText.text22W500White,
+                )
+              ],
+            ),
+          ),
+          SizeConstant.height10
+        ],
+      ),
     );
   }
 }

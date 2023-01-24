@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
+import 'package:time_tracking_demo/constants/size_constant.dart';
 
 import 'colors_and_text_style.dart';
 
@@ -56,7 +57,7 @@ TextTheme shadeTextThemeDark = const TextTheme(
       fontSize: 16,
       fontWeight: FontWeight.w400),
   headline5: TextStyle(
-      color: ThemeColors.dHintColor, fontSize: 16, fontWeight: FontWeight.w400),
+      color: ThemeColors.dHintColor, fontSize: SizeConstant.font16, fontWeight: FontWeight.w400),
   headline6: TextStyle(fontSize: 12, color: TaskColors.backgroundColor),
   headlineLarge: TextStyle(
       color: ThemeColors.dBackgroundColor,

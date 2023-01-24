@@ -10,6 +10,7 @@ abstract class HistoryState extends Equatable {
   List<Object?> get props => [taskList, listOfCsvList];
 }
 
+///HistoryInitial
 class HistoryInitial extends HistoryState {
   const HistoryInitial() : super(null, null);
 
@@ -17,6 +18,7 @@ class HistoryInitial extends HistoryState {
   List<Object> get props => [];
 }
 
+///HistorySuccess
 class HistorySuccess extends HistoryState {
   const HistorySuccess(
       {List<TaskModel>? taskList, List<List<String>>? listOfCsvList})

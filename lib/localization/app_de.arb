@@ -15,7 +15,11 @@
      "completed": "Vollendet",
      "download": "Herunterladen",
      "title_name": "Titel",
+     "titleHint": "SALZ | API-Definition erstellen für",
+     "titleValidation": "Titel muss erforderlich sein",
      "description": "Beschreibung",
+     "descriptionHint": "Website-UI-Design für...",
+     "descriptionValidation": "Beschreibung muss erforderlich sein",
      "create_task": "Aufgabe erstellen",
      "create_new_task": "Neue Aufgabe erstellen",
      "edit": "Bearbeiten",
@@ -28,7 +32,7 @@
      "dark": "Dunkel",
      "red": "Rot",
      "green": "Grün",
-     "orange": "Orange"
-
+     "orange": "Orange",
+     "selectLanguage": "Sprache auswählen"
  }
 

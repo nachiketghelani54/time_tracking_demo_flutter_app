@@ -3,9 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'localization_delegate.dart';
 
-class ShadeAppLocalization {
+class TaskAppLocalization {
   static AppLocalizations get instance =>
-      ShadeAppLocalizationsDelegate.instance;
+      TaskAppLocalizationsDelegate.instance;
 }
 
 extension Localization on BuildContext {

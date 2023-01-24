@@ -7,13 +7,10 @@ abstract class HistoryEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+///FetchHistoryEvent
 class FetchHistoryEvent extends HistoryEvent {
   const FetchHistoryEvent();
-
-  //final DocumentReference task;
 
   @override
   List<Object> get props => [];
 }
-
-

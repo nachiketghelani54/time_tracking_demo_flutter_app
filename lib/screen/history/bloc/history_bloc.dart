@@ -14,22 +14,23 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   final FirebaseConstant firebaseConstant;
-  List<List<String>> listOfCsvLists = [];
-  List<String> csvData = [];
+  final List<List<String>> _listOfCsvLists = [];
 
+  ///FetchHistory
   Future<void> _fetchHistoryToState(
     FetchHistoryEvent event,
     Emitter<HistoryState> emit,
   ) async {
     final task = await firebaseConstant.taskDone;
-    listOfCsvLists.clear();
+    _listOfCsvLists.clear();
     settingUpDataForCsv(task);
-    emit(HistorySuccess(taskList: task, listOfCsvList: listOfCsvLists));
+    emit(HistorySuccess(taskList: task, listOfCsvList: _listOfCsvLists));
   }
 
+  ///settingUpDataForCsv functions
   settingUpDataForCsv(List<TaskModel> task) {
     for (var i = 0; i < task.length; i++) {
-      listOfCsvLists.add([
+      _listOfCsvLists.add([
         task[i].dateTime.toString(),
         task[i].description.toString(),
         task[i].status.toString(),

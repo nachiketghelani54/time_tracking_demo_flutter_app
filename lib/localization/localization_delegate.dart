@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ShadeAppLocalizationsDelegate
+class TaskAppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
-  const ShadeAppLocalizationsDelegate();
+  const TaskAppLocalizationsDelegate();
 
   static late AppLocalizations instance;
 
@@ -14,7 +14,7 @@ class ShadeAppLocalizationsDelegate
   @override
   Future<AppLocalizations> load(Locale locale) async {
     final instanceLocale = await AppLocalizations.delegate.load(locale);
-    ShadeAppLocalizationsDelegate.instance = instanceLocale;
+    TaskAppLocalizationsDelegate.instance = instanceLocale;
     return instance;
   }
 

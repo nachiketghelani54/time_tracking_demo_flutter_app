@@ -15,10 +15,7 @@ class L10n {
     const Locale('de'),
   ];
 
-  static List<L10n> get values => [
-        enUS,
-        de,
-      ];
+  static List<L10n> get values => [enUS, de,];
 
   Locale getLocale() {
     if (this == de) {
@@ -32,9 +29,9 @@ class L10n {
   String toString() {
     switch (this) {
       case enUS:
-        return ShadeAppLocalization.instance.english;
+        return TaskAppLocalization.instance.english;
       case de:
-        return ShadeAppLocalization.instance.german;
+        return TaskAppLocalization.instance.german;
       default:
         return '';
     }

@@ -26,4 +26,7 @@ class StringConstant {
 
   ///Screen String
   static const String flutterString = "Flutter";
+  static const String noDataSelectedString = "No Date Selected";
+  static const String noHistoryFoundString = "No History found";
+  static const String noTimeString = "No Time";
 }

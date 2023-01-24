@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:time_tracking_demo/constants/notification_helper.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
+import 'package:time_tracking_demo/constants/notification_helper.dart';
 import 'package:time_tracking_demo/localization/i10n.dart';
-import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bloc/bottom_nav_bloc.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bottom_nav_bar.dart';
+import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
 import 'package:time_tracking_demo/theme/theme_helper.dart';
@@ -45,9 +45,8 @@ class MyApp extends StatelessWidget {
                 ..add(const FetchLocaleFromSharedPref()),
         ),
         BlocProvider(
-          create: (context) =>
-              ThemeBloc(themeHelper: ThemeHelper())
-                ..add(const FetchThemeFromSharedPref()),
+          create: (context) => ThemeBloc(themeHelper: ThemeHelper())
+            ..add(const FetchThemeFromSharedPref()),
         ),
         BlocProvider(
           create: (context) =>
@@ -74,7 +73,7 @@ class MyApp extends StatelessWidget {
       LocalizationsState localizationsState) {
     return ConnectivityAppWrapper(
       app: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Task Tracker Demo',
         theme: themeState.appTheme,
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,

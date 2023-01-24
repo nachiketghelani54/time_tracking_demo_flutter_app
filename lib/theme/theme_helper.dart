@@ -1,9 +1,7 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_tracking_demo/constants/shared_preferences.dart';
-
 
 const bool defaultTheme = false;
 bool themeValue = defaultTheme;

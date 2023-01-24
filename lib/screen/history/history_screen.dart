@@ -56,8 +56,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         itemCount: state.taskList?.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12, right: 12, bottom: 12),
+                              padding: const EdgeInsets.only(left: SizeConstant.size12, right: SizeConstant.size12, bottom: SizeConstant.size12),
                               child: Row(
                                 children: [
                                   Container(
@@ -218,10 +217,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   ///Download
   _download() {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(SizeConstant.size12),
       child: Container(
         alignment: Alignment.center,
-        height: 45,
+        height: SizeConstant.size45,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,

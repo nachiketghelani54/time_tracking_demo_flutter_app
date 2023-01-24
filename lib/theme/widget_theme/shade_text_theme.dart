@@ -8,69 +8,69 @@ import 'colors_and_text_style.dart';
 TextTheme shadeTextThemeLight = const TextTheme(
   headline1: TextStyle(
       color: ThemeColors.primaryTextColor,
-      fontSize: 14,
+      fontSize: SizeConstant.font14,
       fontWeight: FontWeight.w400),
   headline2: TextStyle(
-      color: ThemeColors.titleColor, fontSize: 16, fontWeight: FontWeight.w400),
+      color: ThemeColors.titleColor, fontSize: SizeConstant.font16, fontWeight: FontWeight.w400),
   headline3: TextStyle(
     color: ThemeColors.primaryTextColor,
-    fontSize: 14,
+    fontSize: SizeConstant.font14,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.italic,
   ),
   headline4: TextStyle(
       color: ThemeColors.backgroundColor,
-      fontSize: 16,
+      fontSize: SizeConstant.font16,
       fontWeight: FontWeight.w400),
   headline5: TextStyle(
-      color: ThemeColors.hintColor, fontSize: 16, fontWeight: FontWeight.w400),
-  headline6: TextStyle(fontSize: 12, color: TaskColors.lightBlackColor),
+      color: ThemeColors.hintColor, fontSize: SizeConstant.font16, fontWeight: FontWeight.w400),
+  headline6: TextStyle(fontSize: SizeConstant.font12, color: TaskColors.lightBlackColor),
   subtitle1: TextStyle(
       color: ThemeColors.primaryTextColor,
-      fontSize: 18,
+      fontSize: SizeConstant.font18,
       fontWeight: FontWeight.w400),
-  subtitle2: TextStyle(fontSize: 17),
+  subtitle2: TextStyle(fontSize: SizeConstant.font17),
   headlineLarge: TextStyle(
-      color: ThemeColors.dIconColor, fontSize: 25, fontWeight: FontWeight.w400),
-  bodyText1: TextStyle(fontSize: 16, color: TaskColors.backgroundColor),
+      color: ThemeColors.dIconColor, fontSize: SizeConstant.font25, fontWeight: FontWeight.w400),
+  bodyText1: TextStyle(fontSize: SizeConstant.font16, color: TaskColors.backgroundColor),
   bodyText2: TextStyle(
-      color: TaskColors.blackColor, fontSize: 16, fontWeight: FontWeight.w400),
+      color: TaskColors.blackColor, fontSize: SizeConstant.font16, fontWeight: FontWeight.w400),
 );
 
 TextTheme shadeTextThemeDark = const TextTheme(
   headline1: TextStyle(
       color: ThemeColors.dBackgroundColor,
-      fontSize: 14,
+      fontSize: SizeConstant.font14,
       fontWeight: FontWeight.w400),
   headline2: TextStyle(
       color: ThemeColors.dTitleColor,
-      fontSize: 16,
+      fontSize: SizeConstant.font16,
       fontWeight: FontWeight.w400),
   headline3: TextStyle(
     color: ThemeColors.dBackgroundColor,
-    fontSize: 14,
+    fontSize: SizeConstant.font14,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.italic,
   ),
   headline4: TextStyle(
       color: ThemeColors.dPrimaryTextColor,
-      fontSize: 16,
+      fontSize: SizeConstant.font16,
       fontWeight: FontWeight.w400),
   headline5: TextStyle(
       color: ThemeColors.dHintColor, fontSize: SizeConstant.font16, fontWeight: FontWeight.w400),
-  headline6: TextStyle(fontSize: 12, color: TaskColors.backgroundColor),
+  headline6: TextStyle(fontSize: SizeConstant.font12, color: TaskColors.backgroundColor),
   headlineLarge: TextStyle(
       color: ThemeColors.dBackgroundColor,
-      fontSize: 25,
+      fontSize: SizeConstant.font25,
       fontWeight: FontWeight.w400),
   subtitle1: TextStyle(
       color: ThemeColors.dBackgroundColor,
-      fontSize: 18,
+      fontSize: SizeConstant.font18,
       fontWeight: FontWeight.w400),
-  subtitle2: TextStyle(fontSize: 17),
-  bodyText1: TextStyle(fontSize: 16, color: TaskColors.backgroundColor),
+  subtitle2: TextStyle(fontSize: SizeConstant.font17,),
+  bodyText1: TextStyle(fontSize: SizeConstant.font16, color: TaskColors.backgroundColor),
   bodyText2: TextStyle(
       color: TaskColors.backgroundColor,
-      fontSize: 17,
+      fontSize: SizeConstant.font17,
       fontWeight: FontWeight.w400),
 );

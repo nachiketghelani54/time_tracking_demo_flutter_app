@@ -17,6 +17,7 @@ class SizeConstant {
   static const double size80 = 80.0;
   static const double size150 = 150.0;
   static const double size35 = 35.0;
+  static const double size45 = 45.0;
 
   ///int Size
   static const int index0 = 0;
@@ -24,7 +25,11 @@ class SizeConstant {
   static const int index2 = 2;
 
   ///Font Size
-  static const double font16 = 16;
   static const double font12 = 12;
+  static const double font14 = 14;
+  static const double font16 = 16;
+  static const double font17 = 17;
   static const double font18 = 18;
+  static const double font24 = 24;
+  static const double font25 = 25;
 }

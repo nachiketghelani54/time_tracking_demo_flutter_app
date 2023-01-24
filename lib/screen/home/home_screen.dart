@@ -4,8 +4,8 @@ import 'package:time_tracking_demo/constants/firebase_constant.dart';
 import 'package:time_tracking_demo/constants/size_constant.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
-import 'package:time_tracking_demo/screen/home/widgets/task_screen.dart';
 import 'package:time_tracking_demo/screen/home/widgets/drawer_widget.dart';
+import 'package:time_tracking_demo/screen/home/widgets/task_screen.dart';
 
 late TabController tabController;
 

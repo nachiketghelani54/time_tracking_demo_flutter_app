@@ -834,7 +834,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                       .taskList?[
                                                                           index]
                                                                       .isStart =
-                                                                  true;
+                                                                  false;
                                                               List data = [];
                                                               data = await sharedPref
                                                                       .getEditTaskOffline ??
@@ -890,7 +890,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                         true,
                                                                     "status": state
                                                                         .taskList?[
-                                                                    index]
+                                                                            index]
                                                                         .status
                                                                   });
                                                             } else {

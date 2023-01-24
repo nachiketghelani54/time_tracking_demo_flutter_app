@@ -11,9 +11,9 @@ import 'package:time_tracking_demo/screen/add_new_task/add_new_task_screen.dart'
 import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 
 import '../../../constants/firebase_constant.dart';
-import '../../../constants/function.dart';
+import '../../../constants/function_constant.dart';
 import '../../../constants/notification_helper.dart';
-import '../../../constants/offline_preference.dart';
+import '../../../constants/shared_preferences.dart';
 import '../../../constants/string_constant.dart';
 import '../../bottom_nav/bottom_nav_bar.dart';
 
@@ -296,10 +296,10 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                             child:
                                                                                 Text(
                                                                               context.localization.in_progress,
-                                                                              style: const TextStyle(
-                                                                                fontSize: 14,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
+                                                                              style: Theme.of(
+                                                                                  context)
+                                                                                  .textTheme
+                                                                                  .headline2
                                                                             ),
                                                                           ),
                                                                         ),
@@ -362,10 +362,10 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                           child:
                                                                               Center(
                                                                             child: Text(context.localization.done,
-                                                                                style: const TextStyle(
-                                                                                  fontSize: 14,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                )),
+                                                                                style: Theme.of(
+                                                                                    context)
+                                                                                    .textTheme
+                                                                                    .headline2),
                                                                           ),
                                                                         ),
                                                                       ),
@@ -434,10 +434,10 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                             child:
                                                                                 Text(
                                                                               context.localization.to_do,
-                                                                              style: const TextStyle(
-                                                                                fontSize: 14,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
+                                                                              style: Theme.of(
+                                                                                  context)
+                                                                                  .textTheme
+                                                                                  .headline2
                                                                             ),
                                                                           ),
                                                                         ),
@@ -500,10 +500,10 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                           child:
                                                                               Center(
                                                                             child: Text(context.localization.done,
-                                                                                style: const TextStyle(
-                                                                                  fontSize: 14,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                )),
+                                                                                style: Theme.of(
+                                                                                    context)
+                                                                                    .textTheme
+                                                                                    .headline2),
                                                                           ),
                                                                         ),
                                                                       ),
@@ -570,10 +570,10 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                             child:
                                                                                 Text(
                                                                               context.localization.to_do,
-                                                                              style: const TextStyle(
-                                                                                fontSize: 14,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
+                                                                              style: Theme.of(
+                                                                                  context)
+                                                                                  .textTheme
+                                                                                  .headline2,
                                                                             ),
                                                                           ),
                                                                         ),
@@ -636,10 +636,10 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                           child:
                                                                               Center(
                                                                             child: Text(context.localization.in_progress,
-                                                                                style: const TextStyle(
-                                                                                  fontSize: 14,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                )),
+                                                                                style: Theme.of(
+                                                                                    context)
+                                                                                    .textTheme
+                                                                                    .headline2),
                                                                           ),
                                                                         ),
                                                                       ),
@@ -763,10 +763,12 @@ class _TaskScreenState extends State<TaskScreen> {
                                                             totalHistory.add(DateTime
                                                                     .parse(endTime
                                                                         .last)
-                                                                .difference(
-                                                                    DateTime.parse(
-                                                                        startTime
-                                                                            .last))
+                                                                .difference(startTime
+                                                                .isEmpty
+                                                                ? DateTime(2023)
+                                                                : DateTime.parse(
+                                                                startTime
+                                                                    .last))
                                                                 .toString());
                                                             for (int i = 0;
                                                                 i <
@@ -830,11 +832,6 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                             .toString()
                                                                   });
                                                             } else {
-                                                              state
-                                                                      .taskList?[
-                                                                          index]
-                                                                      .isStart =
-                                                                  false;
                                                               List data = [];
                                                               data = await sharedPref
                                                                       .getEditTaskOffline ??
@@ -855,10 +852,73 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                     total
                                                                         .toString()
                                                               });
-                                                              sharedPref
+                                                             await sharedPref
                                                                   .setEndOffline(
                                                                       data);
                                                             }
+                                                            List<TaskModel>
+                                                            allTask =
+                                                            await sharedPref
+                                                                .getAllTask
+                                                            as List<
+                                                                TaskModel>;
+                                                            int indexNumber = allTask
+                                                                .indexWhere((element) =>
+                                                            element.id
+                                                                .toString() ==
+                                                                state
+                                                                    .taskList?[
+                                                                index]
+                                                                    .id
+                                                                    .toString());
+                                                            allTask[indexNumber] = TaskModel(
+                                                                id: allTask[indexNumber]
+                                                                    .id,
+                                                                status: allTask[
+                                                                indexNumber]
+                                                                    .status,
+                                                                title: allTask[indexNumber]
+                                                                    .title,
+                                                                dateTime: allTask[index]
+                                                                    .dateTime,
+                                                                description:
+                                                                allTask[indexNumber]
+                                                                    .description,
+                                                                endTime:
+                                                                allTask[index]
+                                                                    .endTime,
+                                                                isStart: false,
+                                                                startTime:
+                                                                allTask[index]
+                                                                    .startTime,
+                                                                timeHistory:
+                                                                allTask[index]
+                                                                    .timeHistory,
+                                                                totalOfDuration:
+                                                                allTask[index]
+                                                                    .totalOfDuration,
+                                                                userId:
+                                                                allTask[index]
+                                                                    .userId);
+                                                            await sharedPref
+                                                                .addAllTask(
+                                                                allTask)
+                                                                .then((value) {
+                                                              Navigator.of(context).pushAndRemoveUntil(
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          BottomNavBarScreen(widget
+                                                                              .index)),
+                                                                      (Route<dynamic>
+                                                                  route) =>
+                                                                  false);
+                                                              context
+                                                                  .read<
+                                                                  TabBloc>()
+                                                                  .add(ChangeTabEvent(
+                                                                  widget
+                                                                      .index));
+                                                            });
                                                           } else {
                                                             NotificationService()
                                                                 .showNotification(
@@ -918,13 +978,75 @@ class _TaskScreenState extends State<TaskScreen> {
                                                                         index]
                                                                     .status
                                                               });
-                                                              sharedPref
+                                                             await sharedPref
                                                                   .setStartOffline(
                                                                       data);
+                                                              List<TaskModel>
+                                                              allTask =
+                                                              await sharedPref
+                                                                  .getAllTask
+                                                              as List<
+                                                                  TaskModel>;
+                                                              int indexNumber = allTask.indexWhere((element) =>
+                                                              element.id
+                                                                  .toString() ==
+                                                                  state
+                                                                      .taskList?[
+                                                                  index]
+                                                                      .id
+                                                                      .toString());
+                                                              allTask[indexNumber] = TaskModel(
+                                                                  id: allTask[indexNumber]
+                                                                      .id,
+                                                                  status: allTask[indexNumber]
+                                                                      .status,
+                                                                  title: allTask[indexNumber]
+                                                                      .title,
+                                                                  dateTime:
+                                                                  allTask[index]
+                                                                      .dateTime,
+                                                                  description:
+                                                                  allTask[indexNumber]
+                                                                      .description,
+                                                                  endTime:
+                                                                  allTask[index]
+                                                                      .endTime,
+                                                                  isStart: true,
+                                                                  startTime: allTask[
+                                                                  index]
+                                                                      .startTime,
+                                                                  timeHistory:
+                                                                  allTask[index]
+                                                                      .timeHistory,
+                                                                  totalOfDuration:
+                                                                  allTask[index]
+                                                                      .totalOfDuration,
+                                                                  userId:
+                                                                  allTask[index]
+                                                                      .userId);
+                                                              await sharedPref
+                                                                  .addAllTask(
+                                                                  allTask)
+                                                                  .then(
+                                                                      (value) {
+                                                                    Navigator.of(context).pushAndRemoveUntil(
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                BottomNavBarScreen(widget
+                                                                                    .index)),
+                                                                            (Route<dynamic>
+                                                                        route) =>
+                                                                        false);
+                                                                    context
+                                                                        .read<
+                                                                        TabBloc>()
+                                                                        .add(ChangeTabEvent(
+                                                                        widget
+                                                                            .index));
+                                                                  });
                                                             }
                                                           }
-                                                          context
-                                                              .read<TabBloc>()
+                                                          context.read<TabBloc>()
                                                               .add(ChangeTabEvent(
                                                                   widget
                                                                       .index));

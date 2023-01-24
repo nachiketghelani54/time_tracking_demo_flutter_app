@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 
-class ShadeColors {
-  ShadeColors._();
+class ThemeColors {
+  ThemeColors._();
   //liteTheme
   static const primaryColor = Color(0xff3B5DE7);
   static const backgroundColor = Color(0xffFFFFFF);
   static const primaryTextColor = Color(0xff000000);
-  static const cardColor = Color(0xffFFFFFF);
   static const hintColor = TaskColors.hintColor;
   static const darkBackgroundColor = Color(0xff000000);
   static const iconColor = Color(0xff58595b);
@@ -67,5 +66,4 @@ class ShadeColors {
   static const oDarkButtonColor = Color(0xff3892ba);
   static const oTitleColor = Colors.white;
 }
-Color darkIconColor2 = const Color(0xff939598);
-Color darkColor = const Color(0xff2A2A2A);
+

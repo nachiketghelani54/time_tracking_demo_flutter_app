@@ -2,13 +2,11 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:time_tracking_demo/constants/shared_preferences.dart';
 
-import '../constants/shared_preference.dart';
 
 const String defaultLocale = 'en';
-const bool defaultTheme = false;
 String currentLocale = defaultLocale;
-bool themeValue = defaultTheme;
 
 /// Class for localization
 class LocalizationHelper {
@@ -20,15 +18,6 @@ class LocalizationHelper {
     try {
       await prefs.setString(localeLanguageCodeKey, locale.languageCode);
       currentLocale = locale.languageCode;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-  /// Save theme to [SharedPreferences]
-  Future<void> saveTheme(bool themeStatus) async {
-    try {
-      await prefs.setBool(themeStatusKey, themeStatus);
-      themeValue = themeStatus;
     } catch (e) {
       log(e.toString());
     }
@@ -48,29 +37,9 @@ class LocalizationHelper {
       return null;
     }
   }
-  /// Get theme from [SharedPreferences]
-  Future<bool> get theme async {
-    try {
-      final themeStatus = prefs.getBool(themeStatusKey);
-
-      if (themeStatus != null) {
-        themeValue = themeStatus;
-        return themeStatus;
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
-  }
 
   /// Clear localization from [SharedPreferences]
   Future<void> clearLocalization() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.clear();
-  }
-  /// Clear theme from [SharedPreferences]
-  Future<void> clearTheme() async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.clear();

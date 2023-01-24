@@ -10,6 +10,7 @@ abstract class TabState extends Equatable {
   List<Object?> get props => [taskList,selectedTab];
 }
 
+///TabLoadingState
 class TabLoadingState extends TabState {
    TabLoadingState() : super(null, null);
 
@@ -17,13 +18,7 @@ class TabLoadingState extends TabState {
   List<Object> get props => [];
 }
 
-// class TabInital extends TabState {
-//     TabInital() : super(null, 0) ;
-//
-//   @override
-//   List<Object> get props => [];
-// }
-
+///TabSuccess
 class TabSuccess extends TabState {
    TabSuccess({List<TaskModel>? taskList,required int selectTab})
       : super(taskList,selectTab);

@@ -2,7 +2,7 @@ import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
-import 'package:time_tracking_demo/constants/offline_preference.dart';
+import 'package:time_tracking_demo/constants/shared_preferences.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
 import 'package:time_tracking_demo/constants/text_style.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
@@ -204,7 +204,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
           sharedPref.addAllTask(allTask).then((value) {
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                    builder: (context) => BottomNavBarScreen(widget.index)),
+                    builder: (context) => BottomNavBarScreen(widget.index ?? 0)),
                 (Route<dynamic> route) => false);
             context.read<TabBloc>().add(ChangeTabEvent(widget.index ?? 0));
           });

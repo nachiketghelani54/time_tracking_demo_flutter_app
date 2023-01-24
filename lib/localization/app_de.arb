@@ -24,11 +24,11 @@
      "edit_task": "Aufgabe bearbeiten",
      "Save Task": "Aufgabe speichern",
      "start": "Anfang",
-     "light":         "Hell",
-         "dark":            "Dunkel",
-         "red":"Rot",
-         "green":               "Grün",
-         "orange":              "Orange"
+     "light":"Hell",
+     "dark": "Dunkel",
+     "red": "Rot",
+     "green": "Grün",
+     "orange": "Orange"
 
  }
 

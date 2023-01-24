@@ -1,7 +1,7 @@
 class StringConstant {
   StringConstant._();
 
-  static const keyIsFirstLoaded = 'is_first_loaded';
+  ///FontFamily
   static const fontFamily = 'Comfortaa';
 
   ///Task
@@ -23,4 +23,7 @@ class StringConstant {
   static const String editStatus = 'editStatus';
   static const String startTime = 'startTime';
   static const String endTime = 'endTime';
+
+  ///Screen String
+  static const String flutterString = "Flutter";
 }

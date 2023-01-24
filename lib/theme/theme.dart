@@ -18,19 +18,19 @@ class TaskTheme {
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: StringConstant.fontFamily,
-      primaryColor: ShadeColors.primaryColor,
-      backgroundColor: ShadeColors.backgroundColor,
-      cardColor: ShadeColors.backgroundColor,
-      iconTheme: const IconThemeData(color: ShadeColors.iconColor),
-      appBarTheme: shadeAppBarThemeLight,
-      bottomAppBarColor: ShadeColors.backgroundColor,
+      primaryColor: ThemeColors.primaryColor,
+      backgroundColor: ThemeColors.backgroundColor,
+      cardColor: ThemeColors.backgroundColor,
+      iconTheme: const IconThemeData(color: ThemeColors.iconColor),
+      appBarTheme: appBarThemeLight,
+      bottomAppBarColor: ThemeColors.backgroundColor,
       textTheme: shadeTextThemeLight,
-      shadowColor: ShadeColors.hintColor,
-      indicatorColor: ShadeColors.primaryColor,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: darkIconColor2,
+      shadowColor: ThemeColors.hintColor,
+      indicatorColor: ThemeColors.primaryColor,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: TaskColors.darkIconColor2,
       ),
-      buttonTheme: const ButtonThemeData(buttonColor: ShadeColors.buttonColor),
+      buttonTheme: const ButtonThemeData(buttonColor: ThemeColors.buttonColor),
       elevatedButtonTheme: shadeElevatedButtonTheme,
     );
   }
@@ -40,20 +40,20 @@ class TaskTheme {
       hintColor: Colors.grey,
       brightness: Brightness.dark,
       fontFamily: StringConstant.fontFamily,
-      primaryColor: ShadeColors.dPrimaryColor,
-      backgroundColor: ShadeColors.dPrimaryColor,
-      cardColor: ShadeColors.dCardColor,
+      primaryColor: ThemeColors.dPrimaryColor,
+      backgroundColor: ThemeColors.dPrimaryColor,
+      cardColor: ThemeColors.dCardColor,
       indicatorColor: TaskColors.backgroundColor,
-      iconTheme: const IconThemeData(color: ShadeColors.dIconColor),
-      appBarTheme: AppBarTheme(backgroundColor: darkColor),
-      bottomAppBarColor: darkColor,
+      iconTheme: const IconThemeData(color: ThemeColors.dIconColor),
+      appBarTheme: const AppBarTheme(backgroundColor: TaskColors.darkColor),
+      bottomAppBarColor: TaskColors.darkColor,
       textTheme: shadeTextThemeDark,
       shadowColor: Colors.black,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: ShadeColors.dBackgroundColor,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: ThemeColors.dBackgroundColor,
       ),
       buttonTheme:
-          const ButtonThemeData(buttonColor: ShadeColors.darkButtonColor),
+          const ButtonThemeData(buttonColor: ThemeColors.darkButtonColor),
       elevatedButtonTheme: shadeElevatedButtonTheme,
     );
   }
@@ -61,19 +61,19 @@ class TaskTheme {
   static ThemeData _buildRedTheme() {
     return ThemeData(
       brightness: Brightness.light,
-      indicatorColor: ShadeColors.rPrimaryColor,
+      indicatorColor: ThemeColors.rPrimaryColor,
       fontFamily: StringConstant.fontFamily,
-      primaryColor: ShadeColors.rPrimaryColor,
-      backgroundColor: ShadeColors.rBackgroundColor,
-      cardColor: ShadeColors.rCardColor,
-      iconTheme: const IconThemeData(color: ShadeColors.rIconColor),
-      appBarTheme: shadeAppBarThemeLight,
-      bottomAppBarColor: ShadeColors.rBackgroundColor,
+      primaryColor: ThemeColors.rPrimaryColor,
+      backgroundColor: ThemeColors.rBackgroundColor,
+      cardColor: ThemeColors.rCardColor,
+      iconTheme: const IconThemeData(color: ThemeColors.rIconColor),
+      appBarTheme: appBarThemeLight,
+      bottomAppBarColor: ThemeColors.rBackgroundColor,
       textTheme: shadeTextThemeLight,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: darkIconColor2,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: TaskColors.darkIconColor2,
       ),
-      buttonTheme: const ButtonThemeData(buttonColor: ShadeColors.rButtonColor),
+      buttonTheme: const ButtonThemeData(buttonColor: ThemeColors.rButtonColor),
       elevatedButtonTheme: shadeElevatedButtonTheme,
     );
   }
@@ -82,18 +82,18 @@ class TaskTheme {
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: StringConstant.fontFamily,
-      indicatorColor: ShadeColors.gPrimaryColor,
-      primaryColor: ShadeColors.gPrimaryColor,
-      backgroundColor: ShadeColors.gBackgroundColor,
-      cardColor: ShadeColors.gCardColor,
-      iconTheme: const IconThemeData(color: ShadeColors.gIconColor),
-      appBarTheme: shadeAppBarThemeLight,
-      bottomAppBarColor: ShadeColors.gBackgroundColor,
+      indicatorColor: ThemeColors.gPrimaryColor,
+      primaryColor: ThemeColors.gPrimaryColor,
+      backgroundColor: ThemeColors.gBackgroundColor,
+      cardColor: ThemeColors.gCardColor,
+      iconTheme: const IconThemeData(color: ThemeColors.gIconColor),
+      appBarTheme: appBarThemeLight,
+      bottomAppBarColor: ThemeColors.gBackgroundColor,
       textTheme: shadeTextThemeLight,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: darkIconColor2,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: TaskColors.darkIconColor2,
       ),
-      buttonTheme: const ButtonThemeData(buttonColor: ShadeColors.gButtonColor),
+      buttonTheme: const ButtonThemeData(buttonColor: ThemeColors.gButtonColor),
       elevatedButtonTheme: shadeElevatedButtonTheme,
     );
   }
@@ -102,18 +102,18 @@ class TaskTheme {
     return ThemeData(
       brightness: Brightness.light,
       fontFamily: StringConstant.fontFamily,
-      indicatorColor: ShadeColors.oPrimaryColor,
-      primaryColor: ShadeColors.oPrimaryColor,
-      backgroundColor: ShadeColors.oBackgroundColor,
-      cardColor: ShadeColors.oCardColor,
-      iconTheme: const IconThemeData(color: ShadeColors.oIconColor),
-      appBarTheme: shadeAppBarThemeLight,
-      bottomAppBarColor: ShadeColors.oBackgroundColor,
+      indicatorColor: ThemeColors.oPrimaryColor,
+      primaryColor: ThemeColors.oPrimaryColor,
+      backgroundColor: ThemeColors.oBackgroundColor,
+      cardColor: ThemeColors.oCardColor,
+      iconTheme: const IconThemeData(color: ThemeColors.oIconColor),
+      appBarTheme: appBarThemeLight,
+      bottomAppBarColor: ThemeColors.oBackgroundColor,
       textTheme: shadeTextThemeLight,
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: darkIconColor2,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: TaskColors.darkIconColor2,
       ),
-      buttonTheme: const ButtonThemeData(buttonColor: ShadeColors.oButtonColor),
+      buttonTheme: const ButtonThemeData(buttonColor: ThemeColors.oButtonColor),
       elevatedButtonTheme: shadeElevatedButtonTheme,
     );
   }

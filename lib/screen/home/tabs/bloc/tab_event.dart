@@ -7,29 +7,30 @@ abstract class TabEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+///FetchTabEvent
 class FetchTabEvent extends TabEvent {
-    FetchTabEvent(this.selectedTab);
-   //  List<TaskModel> taskList = [];
+  const FetchTabEvent(this.selectedTab);
+
   final int selectedTab;
 
   @override
   List<Object> get props => [];
 }
 
+///ChangeTabEvent
 class ChangeTabEvent extends TabEvent {
- // final List<TaskModel> taskList;
-   ChangeTabEvent(this.selectedTab);
-   // List<TaskModel> taskList = [];
+  const ChangeTabEvent(this.selectedTab);
+
   final int selectedTab;
 
   @override
   List<Object> get props => [selectedTab];
 }
 
+///ClearDataEvent
 class ClearDataEvent extends TabEvent {
- // final List<TaskModel> taskList;
-  ClearDataEvent(this.selectedTab);
-   // List<TaskModel> taskList = [];
+  const ClearDataEvent(this.selectedTab);
+
   final int selectedTab;
 
   @override

@@ -9,20 +9,22 @@ part 'tab_state.dart';
 
 class TabBloc extends Bloc<TabEvent, TabState> {
   TabBloc() : super(TabLoadingState()) {
-    on<FetchTabEvent>(_fetchHistoryToState);
+    on<FetchTabEvent>(_fetchTabToState);
     on<ChangeTabEvent>(_changeLocaleEventToState);
     on<ClearDataEvent>(_clearData);
   }
 
-  Future<void> _fetchHistoryToState(
+  ///Fetch Tab Index Details
+  Future<void> _fetchTabToState(
     FetchTabEvent event,
     Emitter<TabState> emit,
   ) async {
-    final task = await FirebaseConstant.task1(event.selectedTab);
+    final task = await FirebaseConstant.taskTab(pageIndex: event.selectedTab);
 
     emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
   }
 
+  ///Clear Tab Data
   Future<void> _clearData(
     ClearDataEvent event,
     Emitter<TabState> emit,
@@ -32,14 +34,13 @@ class TabBloc extends Bloc<TabEvent, TabState> {
     emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
   }
 
+  ///Change Locale Tab Task
   Future<void> _changeLocaleEventToState(
     ChangeTabEvent event,
     Emitter<TabState> emit,
   ) async {
-    try {
-      final task = await FirebaseConstant.task1(event.selectedTab);
+    final task = await FirebaseConstant.taskTab(pageIndex: event.selectedTab);
 
-      emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
-    } catch (e) {}
+    emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
   }
 }

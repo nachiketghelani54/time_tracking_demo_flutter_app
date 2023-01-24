@@ -3,13 +3,13 @@ import 'package:to_csv/to_csv.dart' as exportCSV;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:time_tracking_demo/constants/function.dart';
+import 'package:time_tracking_demo/constants/function_constant.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 
 import '../../constants/color_constant.dart';
 import '../../constants/firebase_constant.dart';
-import '../../constants/offline_preference.dart';
+import '../../constants/shared_preferences.dart';
 import '../../constants/string_constant.dart';
 import '../../constants/text_style.dart';
 
@@ -21,7 +21,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  List<String> header = [
+  List<String> _header = [
     "dateTime",
     "description",
     "status",
@@ -32,6 +32,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   void initState() {
+    super.initState();
     BlocProvider.of<HistoryBloc>(context).add(const FetchHistoryEvent());
   }
 
@@ -194,7 +195,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  exportCSV.myCSV(header, state.listOfCsvList!);
+                  exportCSV.myCSV(_header, state.listOfCsvList!);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),

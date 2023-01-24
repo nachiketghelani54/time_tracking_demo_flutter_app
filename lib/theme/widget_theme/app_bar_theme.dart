@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'colors_and_text_style.dart';
 
-AppBarTheme shadeAppBarThemeLight = const AppBarTheme(
+AppBarTheme appBarThemeLight = const AppBarTheme(
     titleTextStyle: TextStyle(
-        color: ShadeColors.primaryTextColor,
+        color: ThemeColors.primaryTextColor,
         fontSize: 24,
         fontWeight: FontWeight.w400),
-    backgroundColor: ShadeColors.backgroundColor,
-    foregroundColor: ShadeColors.primaryTextColor);
-
-AppBarTheme shadeAppBarThemeDark = AppBarTheme(
-  titleTextStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-  backgroundColor: ShadeColors.dBackgroundColor,
-);
+    backgroundColor: ThemeColors.backgroundColor,
+    foregroundColor: ThemeColors.primaryTextColor);

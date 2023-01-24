@@ -1,24 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracking_demo/localization/localization.dart';
 
-import '../localization/bloc/localization_bloc.dart';
-import '../localization/i10n.dart';
+import '../../localization/bloc/localization_bloc.dart';
+import '../../localization/i10n.dart';
 
 class LanguageSelection extends StatelessWidget {
   const LanguageSelection({
     Key? key,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(),
       child: PopupMenuButton(
-        offset: Offset(110, 0),
+        offset: const Offset(110, 0),
         color: Theme.of(context).appBarTheme.backgroundColor,
         child: Row(
           mainAxisSize: MainAxisSize.min,

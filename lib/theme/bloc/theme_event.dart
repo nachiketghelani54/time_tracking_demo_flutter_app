@@ -19,6 +19,7 @@ class ThemeChanged extends ThemeEvent {
   List<Object> get props => [theme, status];
 }
 
+///Fetch Theme
 class FetchThemeFromSharedPref extends ThemeEvent {
   const FetchThemeFromSharedPref();
 

@@ -15,11 +15,6 @@ class L10n {
     const Locale('de'),
   ];
 
-  // static final all = [
-  //   const Locale('en'),
-  //   const Locale('he'),
-  // ];
-
   static List<L10n> get values => [
         enUS,
         de,

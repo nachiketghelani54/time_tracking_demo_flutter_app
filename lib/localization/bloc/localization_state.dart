@@ -10,6 +10,7 @@ abstract class LocalizationsState extends Equatable {
   List<Object?> get props => [locale];
 }
 
+/// LoadingState
 class LoadingState extends LocalizationsState {
   const LoadingState() : super(null);
 
@@ -17,6 +18,7 @@ class LoadingState extends LocalizationsState {
   List<Object> get props => [];
 }
 
+/// LocalizationSuccess
 class LocalizationSuccess extends LocalizationsState {
   const LocalizationSuccess({Locale? locale}) : super(locale);
 
@@ -24,6 +26,7 @@ class LocalizationSuccess extends LocalizationsState {
   List<Object?> get props => [locale];
 }
 
+/// LocalizationError
 class LocalizationError extends LocalizationsState {
   const LocalizationError({this.errorMessage}) : super(null);
 

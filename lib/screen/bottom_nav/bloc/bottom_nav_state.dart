@@ -10,6 +10,7 @@ abstract class BottomNavState extends Equatable {
   List<Object?> get props => [selectedTab];
 }
 
+
 class LoadingState extends BottomNavState {
   LoadingState(super.selectedTab);
 

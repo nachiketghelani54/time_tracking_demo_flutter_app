@@ -1,13 +1,22 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
+import 'package:time_tracking_demo/models/task_model.dart';
 
 import '../main.dart';
-import '../models/task_model.dart';
+
+late SharedPreferences prefs;
+
+initSharedPreferences() async {
+  prefs = await SharedPreferences.getInstance();
+}
 
 SharedPref sharedPref = sl<SharedPref>();
 
 class SharedPref {
+
+  ///Save Add Task Offline
   Future<void> addAllTask(List<TaskModel> model) async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
@@ -15,6 +24,7 @@ class SharedPref {
         StringConstant.allTask, TaskModel.encode(model));
   }
 
+  ///Fetch Add Task Offline
   Future<List<TaskModel>?> get getAllTask async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
@@ -28,12 +38,14 @@ class SharedPref {
     }
   }
 
+  ///Save New Task Offline
   Future<void> setNewTaskOffline(List data) async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     sharedPreferences.setString(StringConstant.newTask, jsonEncode(data));
   }
 
+  ///Fetch New Task Offline
   Future<List?> get getNewTaskOffline async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
@@ -45,12 +57,14 @@ class SharedPref {
     }
   }
 
+  ///Save Edit Task Offline
   Future<void> setEditTaskOffline(List data) async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     sharedPreferences.setString(StringConstant.editTask, jsonEncode(data));
   }
 
+  ///Fetch Edit Task Offline
   Future<List?> get getEditTaskOffline async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
@@ -62,12 +76,14 @@ class SharedPref {
     }
   }
 
+  ///Save Status offline
   Future<void> setStatusOffline(List data) async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     sharedPreferences.setString(StringConstant.editStatus, jsonEncode(data));
   }
 
+  ///Fetch Status offline
   Future<List?> get getStatusOffline async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();

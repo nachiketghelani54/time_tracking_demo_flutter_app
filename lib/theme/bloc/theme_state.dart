@@ -11,6 +11,7 @@ abstract class ThemeState extends Equatable {
   List<Object?> get props => [appTheme, status];
 }
 
+/// LoadingState
 class LoadingState extends ThemeState {
   const LoadingState() : super(null, null);
 
@@ -18,6 +19,7 @@ class LoadingState extends ThemeState {
   List<Object> get props => [];
 }
 
+/// ThemeSuccess
 class ThemeSuccess extends ThemeState {
   const ThemeSuccess({ThemeData? appTheme, bool? status})
       : super(appTheme, status);

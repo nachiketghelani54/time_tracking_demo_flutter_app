@@ -13,8 +13,8 @@ class ShadeAppLocalizationsDelegate
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    final _instance = await AppLocalizations.delegate.load(locale);
-    ShadeAppLocalizationsDelegate.instance = _instance;
+    final instanceLocale = await AppLocalizations.delegate.load(locale);
+    ShadeAppLocalizationsDelegate.instance = instanceLocale;
     return instance;
   }
 

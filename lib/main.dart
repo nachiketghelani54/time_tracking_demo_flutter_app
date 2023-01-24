@@ -7,15 +7,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:time_tracking_demo/constants/notification_helper.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
-import 'package:time_tracking_demo/constants/shared_preference.dart';
 import 'package:time_tracking_demo/localization/i10n.dart';
 import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bloc/bottom_nav_bloc.dart';
 import 'package:time_tracking_demo/screen/bottom_nav/bottom_nav_bar.dart';
 import 'package:time_tracking_demo/screen/home/tabs/bloc/tab_bloc.dart';
 import 'package:time_tracking_demo/theme/bloc/theme_bloc.dart';
+import 'package:time_tracking_demo/theme/theme_helper.dart';
 
-import 'constants/offline_preference.dart';
+import 'constants/shared_preferences.dart';
 import 'localization/bloc/localization_bloc.dart';
 import 'localization/localization_delegate.dart';
 import 'localization/localization_helper.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) =>
-              ThemeBloc(localizationHelper: LocalizationHelper())
+              ThemeBloc(themeHelper: ThemeHelper())
                 ..add(const FetchThemeFromSharedPref()),
         ),
         BlocProvider(

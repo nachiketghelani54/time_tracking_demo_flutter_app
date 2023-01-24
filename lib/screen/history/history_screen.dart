@@ -1,3 +1,4 @@
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:to_csv/to_csv.dart' as exportCSV;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,9 @@ import 'package:time_tracking_demo/localization/localization.dart';
 import 'package:time_tracking_demo/screen/history/bloc/history_bloc.dart';
 
 import '../../constants/color_constant.dart';
+import '../../constants/firebase_constant.dart';
+import '../../constants/offline_preference.dart';
+import '../../constants/string_constant.dart';
 import '../../constants/text_style.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -29,17 +33,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   void initState() {
     BlocProvider.of<HistoryBloc>(context).add(const FetchHistoryEvent());
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).primaryColor,
-        // foregroundColor: Theme.of(context).backgroundColor,
-        backgroundColor: Theme.of(context).primaryColor,
+       backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         title: Text(
           context.localization.history,

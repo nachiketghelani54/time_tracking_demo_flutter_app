@@ -1,52 +1,45 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:time_tracking_demo/constants/firebase_constant.dart';
 import 'package:time_tracking_demo/models/task_model.dart';
 
 part 'tab_event.dart';
+
 part 'tab_state.dart';
 
 class TabBloc extends Bloc<TabEvent, TabState> {
-  TabBloc() : super( TabLoadingState()) {
+  TabBloc() : super(TabLoadingState()) {
     on<FetchTabEvent>(_fetchHistoryToState);
     on<ChangeTabEvent>(_changeLocaleEventToState);
     on<ClearDataEvent>(_clearData);
-
   }
 
-
   Future<void> _fetchHistoryToState(
-      FetchTabEvent event,
-      Emitter<TabState> emit,
-      ) async {
+    FetchTabEvent event,
+    Emitter<TabState> emit,
+  ) async {
     final task = await FirebaseConstant.task1(event.selectedTab);
-    
 
-    emit(TabSuccess(taskList: task,selectTab: event.selectedTab));
+    emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
   }
 
   Future<void> _clearData(
-      ClearDataEvent event,
-      Emitter<TabState> emit,
-      ) async {
+    ClearDataEvent event,
+    Emitter<TabState> emit,
+  ) async {
     List<TaskModel> task = [];
 
-
-    emit(TabSuccess(taskList: task,selectTab: event.selectedTab));
+    emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
   }
 
   Future<void> _changeLocaleEventToState(
-      ChangeTabEvent event,
-      Emitter<TabState> emit,
-      ) async {
+    ChangeTabEvent event,
+    Emitter<TabState> emit,
+  ) async {
     try {
       final task = await FirebaseConstant.task1(event.selectedTab);
 
-      emit(TabSuccess(taskList:task,selectTab: event.selectedTab));
-    } catch (e) {
-
-    }
+      emit(TabSuccess(taskList: task, selectTab: event.selectedTab));
+    } catch (e) {}
   }
-
 }

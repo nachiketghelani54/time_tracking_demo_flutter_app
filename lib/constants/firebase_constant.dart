@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:time_tracking_demo/constants/offline_preference.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
 import 'package:time_tracking_demo/models/task_model.dart';
 
@@ -17,15 +19,18 @@ class FirebaseConstant {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static setCollection(
-      {required String collectionName,required Map<String, dynamic> value}) {
-    return _fireStoreData
-        .collection(collectionName ?? '').add(value);
+      {required String collectionName, required Map<String, dynamic> value,required String id}) {
+    return _fireStoreData.collection(collectionName ?? '').doc(id).set(value);
   }
 
   static Future updateCollection(
-      {required String collectionName,required Map<String, dynamic> value,required String docId}) {
+      {required String collectionName,
+      required Map<String, dynamic> value,
+      required String docId}) {
     return _fireStoreData
-        .collection(collectionName ?? '').doc(docId).update(value);
+        .collection(collectionName ?? '')
+        .doc(docId)
+        .update(value);
   }
 
   static fetchCollection({String? collectionName, String? docId}) {
@@ -36,18 +41,33 @@ class FirebaseConstant {
   }
 
   static fetchCollections({required String collectionName}) {
-    return _fireStoreData
-        .collection(collectionName ?? '')
-        .get();
+    return _fireStoreData.collection(collectionName ?? '').get();
   }
 
   /// Get task from [Collection]
   Future<List<TaskModel>> get task async {
     try {
-      QuerySnapshot<Map<String, dynamic>> task = await _fireStoreData
-          .collection(StringConstant.taskCollection)
-          .get();
-      List<TaskModel> task1 = task.docs.toList().map((e) => TaskModel.fromMap(e.id ,e.data())).where((element) => element.status == StringConstant.doneString).toList();
+      QuerySnapshot<Map<String, dynamic>> task =
+          await _fireStoreData.collection(StringConstant.taskCollection).get();
+      List<TaskModel> task1 = task.docs
+          .toList()
+          .map((e) => TaskModel.fromMap(e.id, e.data()))
+          .where((element) => element.status == StringConstant.doneString)
+          .toList();
+      return task1;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<TaskModel>> get allTask async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> task =
+          await _fireStoreData.collection(StringConstant.taskCollection).get();
+      List<TaskModel> task1 = task.docs
+          .toList()
+          .map((e) => TaskModel.fromMap(e.id, e.data()))
+          .toList();
       return task1;
     } catch (e) {
       return [];
@@ -56,41 +76,44 @@ class FirebaseConstant {
 
   static Future<List<TaskModel>> task1(test1) async {
     try {
-      QuerySnapshot<Map<String, dynamic>> task = await _fireStoreData
-          .collection(StringConstant.taskCollection)
-          .get();
-      List<TaskModel> task1 = task.docs.toList().map((e) => TaskModel.fromMap(e.id ,e.data())).toList();
-      List<TaskModel> task2 = [];
-       task2.addAll(task1.where((element) => element.status == getTask(test1)));
-      // if(test1 == 0){
-      //   task1.addAll(task1.where((element) => element.status == getTask(test1)));
-      //
-      // }else if(test1 == 1){
-      //   task1.addAll(task1.where((element) => element.status == "inProgress"));
-      //
-      // }else{
-      //   task1.addAll(task1.where((element) => element.status == "done"));
-      //
-      // }
-
-      return task2;
+      if (await ConnectivityWrapper.instance.isConnected) {
+        QuerySnapshot<Map<String, dynamic>> task = await _fireStoreData
+            .collection(StringConstant.taskCollection)
+            .get();
+        List<TaskModel> task1 = task.docs
+            .toList()
+            .map((e) => TaskModel.fromMap(e.id, e.data()))
+            .toList();
+        List<TaskModel> task2 = [];
+        task2
+            .addAll(task1.where((element) => element.status == getTask(test1)));
+        return task2;
+      } else {
+        List<TaskModel> taskOffline = [];
+        List<TaskModel> offlineData = await sharedPref.getAllTask ?? [];
+        taskOffline.addAll(
+            offlineData.where((element) => element.status == getTask(test1)));
+        return taskOffline;
+      }
     } catch (e) {
       return [];
     }
   }
 
   /// Get task from [Collection]
-  static editTask(userId,Map<String,dynamic> value) async {
-    return  _fireStoreData
-          .collection(StringConstant.taskCollection).doc(userId).update(value);
+  static editTask(userId, Map<String, dynamic> value) async {
+    return _fireStoreData
+        .collection(StringConstant.taskCollection)
+        .doc(userId)
+        .update(value);
   }
 
   Future<String> get userId async {
     try {
       UserCredential users = await _auth.signInAnonymously();
-      if(users.user != null){
+      if (users.user != null) {
         return users.user?.uid.toString() ?? '';
-      }else{
+      } else {
         return '';
       }
     } catch (e) {

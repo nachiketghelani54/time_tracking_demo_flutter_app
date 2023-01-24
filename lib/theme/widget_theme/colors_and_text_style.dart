@@ -66,12 +66,6 @@ class ShadeColors {
   static const oButtonColor = Color(0xffFFFFFF);
   static const oDarkButtonColor = Color(0xff3892ba);
   static const oTitleColor = Colors.white;
-
 }
-
-// Color mainColor = ShadeColors.primaryColor;
-// Color darkIconColor = const Color(0xff58595b);
 Color darkIconColor2 = const Color(0xff939598);
 Color darkColor = const Color(0xff2A2A2A);
-// Color mainBackGroundColor = const Color(0xff2A2B3D);
-// Color mainBackGroundBlackColor = const Color(0xff1D1D29);

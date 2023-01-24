@@ -387,7 +387,128 @@ class _TaskScreenState extends State<TaskScreen> {
                             ),
                             const Expanded(child: SizedBox()),
                             InkWell(
-                              onTap: _startOrStopTaskTap(index),
+                              onTap:  () async {
+                                List<String> startTime = task[index].startTime!;
+                                List<String> endTime = task[index].endTime!;
+                                List<String> totalHistory = task[index].timeHistory!;
+                                Duration? total;
+                                if (task[index].isStart ?? false) {
+                                  NotificationService().showNotification(
+                                      UniqueKey().hashCode,
+                                      task[index].title.toString(),
+                                      "congratulations! You done the task.");
+                                  endTime.add(DateTime.now().toString());
+                                  totalHistory.add(DateTime.parse(endTime.last)
+                                      .difference(startTime.isEmpty
+                                      ? DateTime(2023)
+                                      : DateTime.parse(startTime.last))
+                                      .toString());
+                                  for (int i = 0; i < task[index].timeHistory!.length; i++) {
+                                    Duration dt = parseDuration(task[index].timeHistory![i]);
+                                    total = total == null
+                                        ? parseDuration(task[index].timeHistory![i])
+                                        : total = Duration(
+                                        days: total.inDays + dt.inDays,
+                                        microseconds: total.inMicroseconds + dt.inMicroseconds,
+                                        milliseconds: total.inMilliseconds + dt.inMilliseconds,
+                                        minutes: total.inMinutes + dt.inMinutes,
+                                        hours: total.inHours + dt.inHours,
+                                        seconds: total.inSeconds + dt.inSeconds);
+                                  }
+                                  if (await ConnectivityWrapper.instance.isConnected) {
+                                    await FirebaseConstant.updateCollection(
+                                        docId: task[index].id ?? '',
+                                        collectionName: StringConstant.taskCollection,
+                                        value: {
+                                          'timeHistory': totalHistory,
+                                          'endTime': endTime,
+                                          'isStart': false,
+                                          'totalOfDuration': total.toString()
+                                        });
+                                    navigation(i: widget.index);
+                                    tabUpdate();
+                                  } else {
+                                    List data = [];
+                                    data = await sharedPref.getEditTaskOffline ?? [];
+                                    data.add({
+                                      "docId": task[index].id ?? '',
+                                      'timeHistory': totalHistory,
+                                      'endTime': endTime,
+                                      'isStart': false,
+                                      'totalOfDuration': total.toString()
+                                    });
+                                    await sharedPref.setEndOffline(data);
+                                  }
+                                  List<TaskModel> allTask =
+                                  await sharedPref.getAllTask as List<TaskModel>;
+                                  int indexNumber = allTask.indexWhere(
+                                          (element) => element.id.toString() == task[index].id.toString());
+                                  allTask[indexNumber] = TaskModel(
+                                      id: allTask[indexNumber].id,
+                                      status: allTask[indexNumber].status,
+                                      title: allTask[indexNumber].title,
+                                      dateTime: allTask[index].dateTime,
+                                      description: allTask[indexNumber].description,
+                                      endTime: allTask[index].endTime,
+                                      isStart: false,
+                                      startTime: allTask[index].startTime,
+                                      timeHistory: allTask[index].timeHistory,
+                                      totalOfDuration: allTask[index].totalOfDuration,
+                                      userId: allTask[index].userId);
+                                  await sharedPref.addAllTask(allTask).then((value) {
+                                    navigation(i: widget.index);
+                                    tabUpdate();
+                                  });
+                                } else {
+                                  NotificationService().showNotification(UniqueKey().hashCode,
+                                      task[index].title.toString(), "You started the task.");
+                                  startTime.add(DateTime.now().toString());
+                                  if (await ConnectivityWrapper.instance.isConnected) {
+                                    await FirebaseConstant.updateCollection(
+                                        docId: task[index].id ?? '',
+                                        collectionName: StringConstant.taskCollection,
+                                        value: {
+                                          'startTime': startTime,
+                                          'isStart': true,
+                                          "status": task[index].status
+                                        });
+                                  } else {
+                                    task[index].isStart = true;
+                                    List data = [];
+
+                                    data = await sharedPref.getStartOffline ?? [];
+                                    data.add({
+                                      "docId": task[index].id ?? '',
+                                      "startTime": startTime,
+                                      "isStart": true,
+                                      "status": task[index].status
+                                    });
+                                    await sharedPref.setStartOffline(data);
+                                    List<TaskModel> allTask =
+                                    await sharedPref.getAllTask as List<TaskModel>;
+                                    int indexNumber = allTask.indexWhere(
+                                            (element) => element.id.toString() == task[index].id.toString());
+                                    allTask[indexNumber] = TaskModel(
+                                        id: allTask[indexNumber].id,
+                                        status: allTask[indexNumber].status,
+                                        title: allTask[indexNumber].title,
+                                        dateTime: allTask[index].dateTime,
+                                        description: allTask[indexNumber].description,
+                                        endTime: allTask[index].endTime,
+                                        isStart: true,
+                                        startTime: allTask[index].startTime,
+                                        timeHistory: allTask[index].timeHistory,
+                                        totalOfDuration: allTask[index].totalOfDuration,
+                                        userId: allTask[index].userId);
+                                    await sharedPref.addAllTask(allTask).then((value) {
+                                      navigation(i: widget.index);
+                                      tabUpdate();
+                                    });
+                                  }
+                                }
+                                navigation(i: widget.index);
+                                tabUpdate();
+                              },
                               child: startStopButton(index),
                             )
                           ],
@@ -429,130 +550,6 @@ class _TaskScreenState extends State<TaskScreen> {
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => BottomNavBarScreen(i ?? 0)),
             (Route<dynamic> route) => false);
-  }
-
-  /// start stop navigator
-  _startOrStopTaskTap(int index) {
-    return () async {
-      List<String> startTime = task[index].startTime!;
-      List<String> endTime = task[index].endTime!;
-      List<String> totalHistory = task[index].timeHistory!;
-      Duration? total;
-
-      if (task[index].isStart ?? false) {
-        NotificationService().showNotification(
-            UniqueKey().hashCode,
-            task[index].title.toString(),
-            "congratulations! You done the task.");
-        endTime.add(DateTime.now().toString());
-        totalHistory.add(DateTime.parse(endTime.last)
-            .difference(startTime.isEmpty
-            ? DateTime(2023)
-            : DateTime.parse(startTime.last))
-            .toString());
-        for (int i = 0; i < task[index].timeHistory!.length; i++) {
-          Duration dt = parseDuration(task[index].timeHistory![i]);
-          total = total == null
-              ? parseDuration(task[index].timeHistory![i])
-              : total = Duration(
-              days: total.inDays + dt.inDays,
-              microseconds: total.inMicroseconds + dt.inMicroseconds,
-              milliseconds: total.inMilliseconds + dt.inMilliseconds,
-              minutes: total.inMinutes + dt.inMinutes,
-              hours: total.inHours + dt.inHours,
-              seconds: total.inSeconds + dt.inSeconds);
-        }
-        if (await ConnectivityWrapper.instance.isConnected) {
-          await FirebaseConstant.updateCollection(
-              docId: task[index].id ?? '',
-              collectionName: StringConstant.taskCollection,
-              value: {
-                'timeHistory': totalHistory,
-                'endTime': endTime,
-                'isStart': false,
-                'totalOfDuration': total.toString()
-              });
-        } else {
-          List data = [];
-          data = await sharedPref.getEditTaskOffline ?? [];
-          data.add({
-            "docId": task[index].id ?? '',
-            'timeHistory': totalHistory,
-            'endTime': endTime,
-            'isStart': false,
-            'totalOfDuration': total.toString()
-          });
-          await sharedPref.setEndOffline(data);
-        }
-        List<TaskModel> allTask =
-        await sharedPref.getAllTask as List<TaskModel>;
-        int indexNumber = allTask.indexWhere(
-                (element) => element.id.toString() == task[index].id.toString());
-        allTask[indexNumber] = TaskModel(
-            id: allTask[indexNumber].id,
-            status: allTask[indexNumber].status,
-            title: allTask[indexNumber].title,
-            dateTime: allTask[index].dateTime,
-            description: allTask[indexNumber].description,
-            endTime: allTask[index].endTime,
-            isStart: false,
-            startTime: allTask[index].startTime,
-            timeHistory: allTask[index].timeHistory,
-            totalOfDuration: allTask[index].totalOfDuration,
-            userId: allTask[index].userId);
-        await sharedPref.addAllTask(allTask).then((value) {
-          navigation(i: widget.index);
-          tabUpdate();
-        });
-      } else {
-        NotificationService().showNotification(UniqueKey().hashCode,
-            task[index].title.toString(), "You started the task.");
-        startTime.add(DateTime.now().toString());
-        if (await ConnectivityWrapper.instance.isConnected) {
-          await FirebaseConstant.updateCollection(
-              docId: task[index].id ?? '',
-              collectionName: StringConstant.taskCollection,
-              value: {
-                'startTime': startTime,
-                'isStart': true,
-                "status": task[index].status
-              });
-        } else {
-          task[index].isStart = true;
-          List data = [];
-
-          data = await sharedPref.getStartOffline ?? [];
-          data.add({
-            "docId": task[index].id ?? '',
-            "startTime": startTime,
-            "isStart": true,
-            "status": task[index].status
-          });
-          await sharedPref.setStartOffline(data);
-          List<TaskModel> allTask =
-          await sharedPref.getAllTask as List<TaskModel>;
-          int indexNumber = allTask.indexWhere(
-                  (element) => element.id.toString() == task[index].id.toString());
-          allTask[indexNumber] = TaskModel(
-              id: allTask[indexNumber].id,
-              status: allTask[indexNumber].status,
-              title: allTask[indexNumber].title,
-              dateTime: allTask[index].dateTime,
-              description: allTask[indexNumber].description,
-              endTime: allTask[index].endTime,
-              isStart: true,
-              startTime: allTask[index].startTime,
-              timeHistory: allTask[index].timeHistory,
-              totalOfDuration: allTask[index].totalOfDuration,
-              userId: allTask[index].userId);
-          await sharedPref.addAllTask(allTask).then((value) {
-            navigation(i: widget.index);
-            tabUpdate();
-          });
-        }
-      }
-      tabUpdate();
-    };
   }
 
   Future<void> doneButton(int index) async {

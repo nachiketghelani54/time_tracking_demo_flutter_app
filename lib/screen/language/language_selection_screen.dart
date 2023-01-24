@@ -23,7 +23,7 @@ class LanguageSelection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              context.localization.selectLanguage,
+              context.localization.select_language,
               style: Theme.of(context).textTheme.subtitle2,
             ),
             Icon(Icons.arrow_drop_down_outlined,color: Theme.of(context).textTheme.subtitle2?.color,)

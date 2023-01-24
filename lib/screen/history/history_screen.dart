@@ -47,7 +47,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             );
           }
           return state.taskList?.isEmpty ?? true
-              ? const Center(child: Text(StringConstant.noHistoryFoundString),)
+              ? Center(child: Text(context.localization.no_history_found),)
               : Column(
                   children: [
                     SizeConstant.height12,
@@ -135,7 +135,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                       Padding(padding: const EdgeInsets.all(SizeConstant.size8),
                                                         child: Text(
                                                           state.taskList?[index].endTime?.isEmpty ?? true
-                                                              ? StringConstant.noDataSelectedString
+                                                              ? context.localization.no_date_selected
                                                               : DateFormat("d MMM yyyy").format(DateTime.parse(state.taskList?[index].endTime?.last ?? "")),
                                                           style: Theme.of(context).textTheme.headline6,
                                                         ),
@@ -152,7 +152,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                         padding: const EdgeInsets.all(SizeConstant.size8),
                                                         child: Text(
                                                           state.taskList?[index].timeHistory?.isEmpty ?? false
-                                                              ? StringConstant.noTimeString
+                                                              ? context.localization.no_time
                                                               : state.taskList?[index].timeHistory?.last
                                                                       .split(".").first ?? "",
                                                           style:

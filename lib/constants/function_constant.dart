@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:time_tracking_demo/constants/color_constant.dart';
 import 'package:time_tracking_demo/constants/string_constant.dart';
+import 'package:time_tracking_demo/localization/localization.dart';
 
 ///getColor Function
 Color getColor(String task) {
@@ -27,13 +28,13 @@ String getTask(int task) {
 }
 
 ///getTaskString Function
-String getTaskString(int task) {
+String getTaskString(int task,BuildContext context) {
   if (task == 1) {
-    return StringConstant.inProgressDataString;
+    return context.localization.no_todo_inProgress_found;
   } else if (task == 2) {
-    return StringConstant.doneDataString;
+    return context.localization.no_done_data_found;
   } else {
-    return StringConstant.todoDataString;
+    return context.localization.no_todo_data_found;
   }
 }
 

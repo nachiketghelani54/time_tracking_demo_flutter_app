@@ -33,5 +33,11 @@
     "red": "Red",
     "green": "Green",
     "orange": "Orange",
-    "selectLanguage": "Select Language"
+    "select_language": "Select Language",
+    "no_date_selected": "No Date Selected",
+    "no_history_found": "No History found",
+    "no_time": "No Time",
+    "no_todo_data_found" : "No Data found",
+    "no_todo_inProgress_found": "No InProgress found",
+    "no_done_data_found" :"No done data found"
 }

@@ -33,6 +33,13 @@
      "red": "Rot",
      "green": "Grün",
      "orange": "Orange",
-     "selectLanguage": "Sprache auswählen"
+     "select_language": "Sprache auswählen",
+     "no_date_selected":"Kein Datum ausgewählt",
+     "no_history_found":"Kein Verlauf gefunden",
+     "no_time":"Keine Zeit",
+     "no_todo_data_found" :"Keine Aufgabendaten gefunden",
+     "no_todo_inProgress_found" :"Kein InProgress gefunden",
+     "no_done_data_found" :"Keine erledigten Daten gefunden"
+
  }
 

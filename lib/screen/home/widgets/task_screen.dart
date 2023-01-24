@@ -49,7 +49,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 } else if (state is TabSuccess) {
                   return task.isEmpty
                       ? Center(
-                    child: Text(getTaskString(widget.index)),
+                    child: Text(getTaskString(widget.index,context)),
                   )
                       : Padding(
                     padding: const EdgeInsets.only(top: 12),
